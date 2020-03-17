@@ -40,6 +40,7 @@ class PassMeterTooltip extends Component {
   render() {
     const { parentStyle } = this.props;
     const style = PassMeterTooltipStyle();
+    this.handleSecurityItems();
 
     return (
       <View style={[style.container, parentStyle]}>

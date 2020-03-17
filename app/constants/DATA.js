@@ -190,6 +190,7 @@ const STATE_MACHINE = {
   // Referred user HODL award failed during the 3 months
   REFERRED_HODL_REJECTED: "REFERRED_HODL_REJECTED", // NOTE: new type
   // Referrer user award for the initial $1K deposit
+  // Referrer user award for the initial $1K deposit
   REFERRER_INITIAL: "REFERRER_INITIAL", // NOTE: renamed from REFERRER
   // Referrer user HODL award waiting for 3 months to expire
   REFERRER_HODL_PENDING: "REFERRER_HODL_PENDING", // NOTE: new type
@@ -361,10 +362,10 @@ const SIMPLEX_FIAT_CURRENCIES = [
 ];
 
 const SECURITY_STRENGTH_ITEMS = [
-  { copy: "The minimum password length is 8." },
-  { copy: "You must use at least 1 uppercase letter(s)." },
-  { copy: "You must use at least 1 number(s)." },
-  { copy: "You must use at least 1 symbol(s)." },
+  { copy: "Minimum 8 Characters." },
+  { copy: "Capital letter - at least one." },
+  { copy: "Numbers – at least one." },
+  { copy: "Special characters – at least one." },
   { copy: "Can’t contain your name or parts of the your’s full name." },
 ];
 
