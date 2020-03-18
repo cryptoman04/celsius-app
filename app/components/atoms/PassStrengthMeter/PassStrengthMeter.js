@@ -15,25 +15,24 @@ class PassStrengthMeter extends Component {
   static defaultProps = {};
 
   handlePassStatus = () => {
-    const status = calculatePasswordScore().status;
-
+    const status = calculatePasswordScore().customStatus;
     switch (status) {
-      case "needs requirement(s)":
+      case SECURITY_STRENGTH_LEVEL[0]:
         return {
           level: SECURITY_STRENGTH_LEVEL[0],
           color: STYLES.COLORS.RED,
         };
-      case "medium":
+      case SECURITY_STRENGTH_LEVEL[1]:
         return {
           level: SECURITY_STRENGTH_LEVEL[1],
           color: STYLES.COLORS.ORANGE,
         };
-      case "strong":
+      case SECURITY_STRENGTH_LEVEL[2]:
         return {
           level: SECURITY_STRENGTH_LEVEL[2],
           color: STYLES.COLORS.ORANGE,
         };
-      case "perfect":
+      case SECURITY_STRENGTH_LEVEL[3]:
         return {
           level: SECURITY_STRENGTH_LEVEL[3],
           color: STYLES.COLORS.GREEN,
@@ -45,6 +44,7 @@ class PassStrengthMeter extends Component {
     const style = PassStrengthMeterStyle();
     const { customStyle } = this.props;
     const passStatus = this.handlePassStatus();
+
     return (
       <View style={[customStyle, style.container]}>
         <View

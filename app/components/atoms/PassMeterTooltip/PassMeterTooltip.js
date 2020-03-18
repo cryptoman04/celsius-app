@@ -11,7 +11,7 @@ import calculatePasswordScore from "../../../utils/password-util";
 
 class PassMeterTooltip extends Component {
   static propTypes = {
-    parentStyle: PropTypes.instanceOf(Object),
+    customStyle: PropTypes.instanceOf(Object),
   };
 
   // handleScore = () => {
@@ -19,8 +19,7 @@ class PassMeterTooltip extends Component {
   // }
 
   handleSecurityItems = () => {
-    const score = calculatePasswordScore().errors;
-
+    const score = calculatePasswordScore().result.errors;
     const items = SECURITY_STRENGTH_ITEMS.map(i => {
       let status;
       if ((score && !score.includes(i.copy)) || score === "undefined") {
@@ -33,17 +32,15 @@ class PassMeterTooltip extends Component {
         status,
       };
     });
-
     return items;
   };
 
   render() {
-    const { parentStyle } = this.props;
+    const { customStyle } = this.props;
     const style = PassMeterTooltipStyle();
     this.handleSecurityItems();
-
     return (
-      <View style={[style.container, parentStyle]}>
+      <View style={[style.container, customStyle]}>
         {this.handleSecurityItems().map((i, k) => (
           <View style={style.securityStrengthItem} k={k}>
             <Icon

@@ -9,6 +9,7 @@ const base = {
     borderRadius: 8,
     alignSelf: "center",
     padding: 10,
+    elevation: 100,
   },
   securityStrengthItem: {
     flexDirection: "row",

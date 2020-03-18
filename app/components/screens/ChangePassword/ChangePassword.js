@@ -10,6 +10,7 @@ import CelInput from "../../atoms/CelInput/CelInput";
 import CelButton from "../../atoms/CelButton/CelButton";
 import apiUtil from "../../../utils/api-util";
 import API from "../../../constants/API";
+import calculatePasswordScore from "../../../utils/password-util";
 
 @connect(
   state => ({
@@ -70,7 +71,8 @@ class ChangePassword extends Component {
         <CelButton
           onPress={this.changePassword}
           loading={changingPassword}
-          margin={"140 0 0 0"}
+          margin={"10 0 0 0"}
+          disabled={calculatePasswordScore().score < 80}
         >
           Change password
         </CelButton>

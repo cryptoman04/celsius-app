@@ -9,8 +9,6 @@ import CelText from "../CelText/CelText";
 import PassMeterTooltip from "../PassMeterTooltip/PassMeterTooltip";
 import PassStrengthMeter from "../PassStrengthMeter/PassStrengthMeter";
 
-// import calculatePasswordScore from "../../../utils/password-util";
-
 class CelInputPassword extends Component {
   static propTypes = {
     type: PropTypes.oneOf([
@@ -93,7 +91,7 @@ class CelInputPassword extends Component {
           <View
             style={{
               position: "absolute",
-              top: tooTipPositionTop ? -145 : 55,
+              top: tooTipPositionTop ? -145 : 90,
               left: 0,
             }}
           >

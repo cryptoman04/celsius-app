@@ -1,6 +1,9 @@
 import { PasswordMeter } from "password-meter";
 import store from "../redux/store";
-import { SECURITY_STRENGTH_ITEMS } from "../constants/DATA";
+import {
+  SECURITY_STRENGTH_ITEMS,
+  SECURITY_STRENGTH_LEVEL,
+} from "../constants/DATA";
 
 /**
  * @typedef {Object} UserData - user's first name, last name and optional middle name.
@@ -25,7 +28,7 @@ const calculatePasswordScore = () => {
   }
   const pm = new PasswordMeter({
     minLength: {
-      value: 8,
+      value: 5,
       message: SECURITY_STRENGTH_ITEMS[0].copy,
     },
     uppercaseLettersMinLength: {
@@ -47,14 +50,32 @@ const calculatePasswordScore = () => {
     },
   });
   const result = pm.getResult(formData.password || formData.newPassword);
+  let customStatus;
+  switch (true) {
+    case result.score < 80:
+      customStatus = SECURITY_STRENGTH_LEVEL[0];
+      break;
+    case result.score < 140:
+      customStatus = SECURITY_STRENGTH_LEVEL[1];
+      break;
+    case result.score < 200:
+      customStatus = SECURITY_STRENGTH_LEVEL[2];
+      break;
+    default:
+      customStatus = SECURITY_STRENGTH_LEVEL[3];
+  }
   if (!result.errors) {
     return {
       ...result,
       errors: [],
+      customStatus,
     };
   }
 
-  return result;
+  return {
+    result,
+    customStatus,
+  };
 };
 
 export default calculatePasswordScore;
