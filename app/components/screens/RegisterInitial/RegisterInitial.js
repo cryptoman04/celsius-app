@@ -223,6 +223,7 @@ class RegisterInitial extends Component {
             }}
             showPasswordTooltip
             tooTipPositionTop
+            margin={"0 0 30 0"}
           />
         )}
 

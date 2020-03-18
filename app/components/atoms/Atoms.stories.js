@@ -33,7 +33,8 @@ import ProgressBarStories from "./ProgressBar/ProgressBar.stories";
 import SecurityStrengthMeter from "./SecurityStrengthMeter/SecurityStrengthMeter.stories";
 import SecurityScoreGauge from "./SecurityScoreGauge/SecurityScoreGauge.stories";
 import HodlBannerStories from "./HodlBanner/HodlBanner.stories";
-import PassMeterTooltipStories from "./PassMeterTooltip/PassMeterTooltip.stories"
+import PassMeterTooltipStories from "./PassMeterTooltip/PassMeterTooltip.stories";
+import PassStrengthMeterStories from "./PassStrengthMeter/PassStrengthMeter.stories";
 // NOTE(fj): plop componentGen importing new stories here
 
 storiesOf("Atoms", module)
@@ -72,5 +73,6 @@ storiesOf("Atoms", module)
   .add("SecurityStrengthMeter", SecurityStrengthMeter)
   .add("SecurityScoreGauge", SecurityScoreGauge)
   .add("HodlBanner", HodlBannerStories)
-  .add("PassMeterTooltipStories", PassMeterTooltipStories);
+  .add("PassMeterTooltipStories", PassMeterTooltipStories)
+  .add("PassStrengthMeterStories", PassStrengthMeterStories);
 // NOTE(fj): plop componentGen adding new stories here

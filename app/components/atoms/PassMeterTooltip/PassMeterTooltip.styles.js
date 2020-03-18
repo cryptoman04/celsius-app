@@ -8,7 +8,6 @@ const base = {
     backgroundColor: STYLES.COLORS.DARK_GRAY,
     borderRadius: 8,
     alignSelf: "center",
-    zIndex: 10000,
     padding: 10,
   },
   securityStrengthItem: {

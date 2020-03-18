@@ -7,6 +7,7 @@ import CelInputText from "./CelInputText";
 import { THEMES } from "../../../constants/UI";
 import CelText from "../CelText/CelText";
 import PassMeterTooltip from "../PassMeterTooltip/PassMeterTooltip";
+import PassStrengthMeter from "../PassStrengthMeter/PassStrengthMeter";
 
 // import calculatePasswordScore from "../../../utils/password-util";
 
@@ -128,6 +129,17 @@ class CelInputPassword extends Component {
               </>
             )}
           </View>
+          {!!value && showPasswordTooltip && (
+            <PassStrengthMeter
+              customStyle={{
+                flex: 1,
+                width: "100%",
+                // marginHorizontal: -15,
+                position: "absolute",
+                bottom: -25,
+              }}
+            />
+          )}
           <CelInputText
             {...this.props}
             secureTextEntry={!visible}
