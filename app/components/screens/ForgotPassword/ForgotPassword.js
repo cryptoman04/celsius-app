@@ -28,7 +28,7 @@ class ForgotPassword extends Component {
   render() {
     const { formData, actions, callsInProgress } = this.props;
     const loading = apiUtil.areCallsInProgress(
-      API.SEND_RESET_LINK,
+      [API.SEND_RESET_LINK],
       callsInProgress
     );
     return (

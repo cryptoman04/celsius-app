@@ -8,7 +8,7 @@ import * as appActions from "../../../redux/actions";
 import RegularLayout from "../../layouts/RegularLayout/RegularLayout";
 import IconButton from "../../organisms/IconButton/IconButton";
 import CelButton from "../../atoms/CelButton/CelButton";
-import { MODALS } from "../../../constants/UI";
+import { HODL_STATUS, MODALS } from "../../../constants/UI";
 import RemoveAuthAppModal from "../../modals/RemoveAuthAppModal/RemoveAuthAppModal";
 import { hasPassedKYC } from "../../../utils/user-util";
 import CelSwitch from "../../atoms/CelSwitch/CelSwitch";
@@ -19,6 +19,7 @@ import CelSwitch from "../../atoms/CelSwitch/CelSwitch";
     user: state.user.profile,
     kycStatus: state.user.profile.kyc,
     formData: state.forms.formData,
+    hodlStatus: state.hodl.hodlStatus,
   }),
   dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
 )
@@ -36,6 +37,11 @@ class SecuritySettings extends Component {
     if (nextProps.is2FAEnabled !== prevState.is2FAEnabled) {
       return {
         is2FAEnabled: nextProps.is2FAEnabled,
+      };
+    }
+    if (nextProps.hodlStatus.isActive !== prevState.isInHodlMode) {
+      return {
+        isInHodlMode: nextProps.hodlStatus.isActive,
       };
     }
     return null;
@@ -93,10 +99,12 @@ class SecuritySettings extends Component {
 
   rightSwitchHodl = () => {
     const { isInHodlMode } = this.state;
+    const { hodlStatus } = this.props;
     return (
       <CelSwitch
         onValueChange={this.handleSwitchChangeHodl}
         value={isInHodlMode}
+        disabled={hodlStatus.state === HODL_STATUS.PENDING_DEACTIVATION}
       />
     );
   };
@@ -131,7 +139,7 @@ class SecuritySettings extends Component {
         )}
 
         <IconButton right={<SwitcherHodl />} hideIconRight margin="0 0 20 0">
-          HODL mode
+          HODL Mode
         </IconButton>
 
         {!user.registered_with_social && (

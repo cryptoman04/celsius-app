@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as appActions from "../../../redux/actions";
@@ -31,6 +31,7 @@ class EmptyState extends Component {
     modal: PropTypes.element,
     secondaryButton: PropTypes.string,
     secondaryOnPress: PropTypes.func,
+    image: PropTypes.string,
   };
   static defaultProps = {};
 
@@ -94,13 +95,19 @@ class EmptyState extends Component {
       support,
       secondaryButton,
       secondaryOnPress,
+      image,
     } = emptyStateProps;
     const style = EmptyStateStyle();
 
     return (
       <View style={style.container}>
-
         {this.renderAboveHeadingSection()}
+
+        {image && (
+          <View style={[style.circle]}>
+            <Image source={image} style={style.image} />
+          </View>
+        )}
 
         <CelText margin="20 0 15 0" align="center" type="H2" weight={"bold"}>
           {heading}

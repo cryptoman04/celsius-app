@@ -71,7 +71,7 @@ class ConfirmCamera extends Component {
     const { isLoading } = this.state;
 
     const loading = apiUtil.areCallsInProgress(
-      API.TAKE_CAMERA_PHOTO,
+      [API.TAKE_CAMERA_PHOTO],
       callsInProgress
     );
 

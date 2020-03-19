@@ -26,4 +26,5 @@ export * from "./user/userDataActions";
 export * from "./userSecurity/userSecurityActions";
 export * from "./user/userProfileActions";
 
+export * from "./hodl/hodlActions";
 // NOTE(fj): plop reduxGen importing new Actions here

@@ -17,6 +17,7 @@ class CelSwitch extends Component {
     trackColor: PropTypes.instanceOf(Object),
     value: PropTypes.bool,
     onValueChange: PropTypes.func,
+    disabled: PropTypes.bool,
   };
   static defaultProps = {
     thumbColor:
@@ -42,11 +43,13 @@ class CelSwitch extends Component {
       trackColor,
       value,
       onValueChange,
+      disabled,
     } = this.props;
     // const style = CelSwitchStyle();
     return (
       <View>
         <Switch
+          disabled={disabled}
           thumbColor={thumbColor}
           ios_backgroundColor={iosBackgroundColor}
           trackColor={trackColor}

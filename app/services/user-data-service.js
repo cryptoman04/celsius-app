@@ -8,6 +8,7 @@ const userDataService = {
   getLoyaltyInfo,
   getUserAppSettings,
   setUserAppSettings,
+  getUserStatus,
 };
 
 /**
@@ -65,6 +66,14 @@ function getUserAppSettings() {
 
 function setUserAppSettings(data) {
   return axios.put(`${apiUrl}/user_app_settings`, data);
+}
+
+/**
+ *  get user kyc and hodl status
+ * @returns {Promise}
+ */
+function getUserStatus() {
+  return axios.get(`${apiUrl}/me/poll`);
 }
 
 export default userDataService;

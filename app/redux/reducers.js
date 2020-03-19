@@ -25,6 +25,7 @@ import simplex from "./simplex/simplexReducer";
 import loyalty from "./loyalty/loyaltyReducer";
 import security from "./userSecurity/userSecurityReducer";
 import auth from "./userAuth/userAuthReducer";
+import hodl from "./hodl/hodlReducer";
 // NOTE(fj): plop reduxGen importing new Reducer here
 
 const appReducers = combineReducers({
@@ -52,6 +53,7 @@ const appReducers = combineReducers({
   loyalty,
   security,
   auth,
+  hodl,
   // NOTE(fj): plop reduxGen inserting new Reducer here
 });
 

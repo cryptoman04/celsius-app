@@ -28,7 +28,7 @@ class HODLInfoCheckboxes extends Component {
   static defaultProps = {};
 
   static navigationOptions = () => ({
-    title: "HODL mode",
+    title: "HODL Mode",
     right: "profile",
   });
 
@@ -39,20 +39,26 @@ class HODLInfoCheckboxes extends Component {
     const checkboxCopy = [
       {
         field: "hodl1",
-        explanation: "You will not have ability to Withdraw funds",
+        explanation: "You will not be able to withdraw your funds",
       },
       {
         field: "hodl2",
-        explanation: "You will not have ability to CelPay funds",
+        explanation: "You will not be able to send funds via CelPay",
       },
       {
         field: "hodl3",
         explanation:
-          "You will not have ability to change whitelisted withdrawal addresses",
+          "You will not be able to change whitelisted withdrawal addresses",
+      },
+      {
+        field: "hodl4",
+        explanation:
+          "There will be a 24-hour wait period before reinstating the above functionalities upon deactivation of HODL Mode",
       },
     ];
 
-    const canContinue = formData.hodl1 && formData.hodl2 && formData.hodl3;
+    const canContinue =
+      formData.hodl1 && formData.hodl2 && formData.hodl3 && formData.hodl4;
     return (
       <RegularLayout padding="0 0 0 0">
         <HeadingProgressBar steps={3} currentStep={2} />
@@ -68,15 +74,16 @@ class HODLInfoCheckboxes extends Component {
             type={"H2"}
             weight={"bold"}
           >
-            Disabled actions in HODL mode
+            Disabled actions in HODL Mode
           </CelText>
           <CelText type={"H4"} align={"left"}>
-            HODL mode disables actions on your profile that are at risk of being
-            misused. But don’t worry, some actions like depositing or buying
-            cryptocurrency will remain enabled.
+            When HODL Mode is activated, certain outbound features of your
+            Celsius wallet will be unavailable until you choose to deactivate
+            HODL Mode:
           </CelText>
           {checkboxCopy.map((text, i) => (
             <Card
+              key={text.field}
               color={
                 theme === THEMES.LIGHT
                   ? STYLES.COLORS.WHITE
@@ -94,6 +101,7 @@ class HODLInfoCheckboxes extends Component {
                 uncheckedCheckBoxColor={STYLES.COLORS.GRAY}
                 checkedCheckBoxColor={STYLES.COLORS.GREEN}
                 rightText={text.explanation}
+                updateFormField={actions.updateFormField}
               />
             </Card>
           ))}
@@ -103,7 +111,10 @@ class HODLInfoCheckboxes extends Component {
             disabled={!canContinue}
             onPress={() =>
               actions.navigateTo("VerifyProfile", {
-                onSuccess: () => actions.navigateTo("HODLViewCode"),
+                onSuccess: () => {
+                  actions.navigateTo("HODLViewCode");
+                  actions.getHodlCode();
+                },
               })
             }
           >

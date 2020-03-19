@@ -51,6 +51,7 @@ import { isLoanBannerVisible } from "../../../utils/ui-util";
     isBannerVisible: state.ui.isBannerVisible,
     maximumDiscount:
       state.generalData.celUtilityTiers.PLATINUM.loan_interest_bonus,
+    hodlStatus: state.hodl.hodlStatus,
   }),
   dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
 )
@@ -253,6 +254,7 @@ class WithdrawEnterAmount extends Component {
       withdrawCompliance,
       maximumDiscount,
       ltvs,
+      hodlStatus,
     } = this.props;
 
     const style = WithdrawEnterAmountStyle();
@@ -269,6 +271,13 @@ class WithdrawEnterAmount extends Component {
       return (
         <StaticScreen
           emptyState={{ purpose: EMPTY_STATES.NON_VERIFIED_WITHDRAW }}
+        />
+      );
+    }
+    if (hodlStatus.isActive) {
+      return (
+        <StaticScreen
+          emptyState={{ purpose: EMPTY_STATES.HODL_MODE_WARNING }}
         />
       );
     }

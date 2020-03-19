@@ -26,6 +26,7 @@ let counter = 0;
     walletSummary: state.wallet.summary,
     celPaySettings: state.generalData.celPaySettings,
     navHistory: state.nav.history,
+    hodlStatus: state.hodl.hodlStatus,
   }),
   dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
 )
@@ -70,6 +71,7 @@ class CelPayLanding extends Component {
       walletSummary,
       actions,
       celPaySettings,
+      hodlStatus,
     } = this.props;
 
     if (kycStatus !== KYC_STATUSES.pending && !hasPassedKYC())
@@ -90,8 +92,15 @@ class CelPayLanding extends Component {
           emptyState={{ purpose: EMPTY_STATES.NON_MEMBER_CELPAY }}
         />
       );
+    if (hodlStatus.isActive) {
+      return (
+        <StaticScreen
+          emptyState={{ purpose: EMPTY_STATES.HODL_MODE_WARNING }}
+        />
+      );
+    }
     if (!celpayCompliance.allowed)
-      return <StaticScreen emptyState={{ purpose: EMPTY_STATES.COMPLIANCE }}/>;
+      return <StaticScreen emptyState={{ purpose: EMPTY_STATES.COMPLIANCE }} />;
 
     if (!cryptoUtil.isGreaterThan(walletSummary.total_amount_usd, 0))
       return (

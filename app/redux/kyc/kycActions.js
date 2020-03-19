@@ -2,19 +2,17 @@ import ACTIONS from "../../constants/ACTIONS";
 import API from "../../constants/API";
 import { apiError, startApiCall } from "../api/apiActions";
 import * as NavActions from "../nav/navActions";
-import { closeModal, showMessage } from "../ui/uiActions";
+import { showMessage } from "../ui/uiActions";
 import userProfileService from "../../services/user-profile-service";
 import apiUtil from "../../utils/api-util";
 import { setFormErrors } from "../forms/formsActions";
 import { KYC_STATUSES, PRIMETRUST_KYC_STATES } from "../../constants/DATA";
 import appsFlyerUtil from "../../utils/appsflyer-util";
 import complianceService from "../../services/compliance-service";
-import { getUserKYCStatus, isUserLoggedIn } from "../../utils/user-util";
 import mixpanelAnalytics from "../../utils/mixpanel-analytics";
 import userKYCService from "../../services/user-kyc-service";
 
 export {
-  getKYCStatus,
   updateProfileInfo,
   updateProfileAddressInfo,
   updateTaxpayerInfo,
@@ -28,7 +26,6 @@ export {
   getPrimeTrustToULink,
   profileTaxpayerInfo,
   getKYCDocTypes,
-  // pollKYCStatus,
 };
 
 /**
@@ -365,58 +362,6 @@ function startKYCSuccess() {
     kyc: {
       status: KYC_STATUSES.pending,
     },
-  };
-}
-
-/**
- * Gets KYC status for user
- */
-function getKYCStatus() {
-  return async (dispatch, getState) => {
-    const status = getUserKYCStatus();
-    const isLoggedIn = isUserLoggedIn();
-    const appInitialized = getState().app.appInitialized;
-    const activeScreen = getState().nav.activeScreen;
-
-    if (!isLoggedIn || !appInitialized || activeScreen === "VerifyProfile")
-      return;
-
-    dispatch(startApiCall(API.GET_KYC_STATUS));
-    try {
-      const res = await userKYCService.getKYCStatus();
-      const newStatus = res.data.status;
-
-      dispatch(getKYCStatusSuccess(res.data));
-
-      if (newStatus === KYC_STATUSES.permanently_rejected) {
-        dispatch(closeModal());
-        return dispatch(NavActions.navigateTo("KYCFinalRejection"));
-      }
-
-      if (newStatus !== status) {
-        dispatch(closeModal());
-        if (newStatus === KYC_STATUSES.passed) {
-          return dispatch(NavActions.navigateTo("WalletLanding"));
-        }
-
-        if (newStatus === KYC_STATUSES.rejected) {
-          return dispatch(NavActions.navigateTo("WalletLanding"));
-        }
-      }
-    } catch (err) {
-      dispatch(showMessage("error", err.msg));
-      dispatch(apiError(API.GET_KYC_STATUS, err));
-    }
-  };
-}
-
-/**
- * @TODO add JSDoc
- */
-function getKYCStatusSuccess(status) {
-  return {
-    type: ACTIONS.GET_KYC_STATUS_SUCCESS,
-    kyc: status,
   };
 }
 

@@ -5,6 +5,12 @@ const base = {
   container: {
     flex: 1,
   },
+  spinner: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    marginBottom: 20,
+  },
 };
 
 const themed = {
@@ -15,6 +21,6 @@ const themed = {
   celsius: {},
 };
 
-const HodlDeactivateStyle = () => getThemedStyle(base, themed);
+const HODLViewCodeStyles = () => getThemedStyle(base, themed);
 
-export default HodlDeactivateStyle;
+export default HODLViewCodeStyles;

@@ -25,6 +25,8 @@ import HodlBanner from "../../atoms/HodlBanner/HodlBanner";
     message: state.ui.message,
     formData: state.forms.formData,
     theme: state.user.appSettings.theme,
+    hodlStatus: state.hodl.hodlStatus,
+    activeScreen: state.nav.activeScreen,
   }),
   dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
 )
@@ -250,17 +252,21 @@ class CelHeading extends Component {
   };
 
   getContent = () => {
-    const { formData } = this.props;
+    const { formData, hodlStatus, actions, activeScreen } = this.props;
     const scene = this.props.scene.descriptor;
     const style = CelHeadingStyle();
     const paddings = getPadding("0 15 0 15");
     const leftStyle = formData.activeSearch
       ? [style.left, { flexDirection: "row", flex: 2 }]
       : style.left;
-    const inHodlMode = false;
+
     return (
       <View style={[style.container, paddings]}>
-        {inHodlMode ? <HodlBanner status={false} /> : null}
+        <HodlBanner
+          status={hodlStatus}
+          actions={actions}
+          activeScreen={activeScreen}
+        />
         <View style={[style.content]}>
           <View style={leftStyle}>
             {this.getLeftContent(scene.options)}

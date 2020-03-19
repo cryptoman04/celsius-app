@@ -12,6 +12,7 @@ const initialState = {
   // TODO move to userDataReducer
   appSettings: {
     theme: "light",
+    activeHodlMode: undefined,
   },
 
   bankAccountInfo: null, // TODO move to userDataReducer
@@ -120,6 +121,15 @@ export default (state = initialState, action) => {
           ...state.profile,
           twitter_oauth_token: action.twitter_tokens.oauth_token,
           twitter_oauth_secret: action.twitter_tokens.oauth_token_secret,
+        },
+      };
+
+    case ACTIONS.SET_HODL_PROPS:
+      return {
+        ...state,
+        appSettings: {
+          ...state.appSettings,
+          activeHodlMode: action.activeHodlMode,
         },
       };
 

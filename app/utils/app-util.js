@@ -83,12 +83,12 @@ async function pollBackendStatus() {
   if (backendPollInterval) clearInterval(backendPollInterval);
 
   await store.dispatch(actions.getBackendStatus());
-  await store.dispatch(actions.getKYCStatus());
+  await store.dispatch(actions.getUserStatus());
   await checkAndRefreshAuthToken();
 
   backendPollInterval = setInterval(async () => {
     await store.dispatch(actions.getBackendStatus());
-    await store.dispatch(actions.getKYCStatus());
+    await store.dispatch(actions.getUserStatus());
     await checkAndRefreshAuthToken();
 
     iteration++;

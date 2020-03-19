@@ -5,21 +5,27 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import * as appActions from "../../../redux/actions";
-// import HODLViewCode from "./HODLViewCode.styles";
+import HODLViewCodeStyles from "./HODLViewCode.styles";
 import CelText from "../../atoms/CelText/CelText";
 import RegularLayout from "../../layouts/RegularLayout/RegularLayout";
 import HeadingProgressBar from "../../atoms/HeadingProgressBar/HeadingProgressBar";
 import { getPadding } from "../../../utils/styles-util";
-import { THEMES } from "../../../constants/UI";
+import { EMPTY_STATES, THEMES } from "../../../constants/UI";
 import STYLES from "../../../constants/STYLES";
 import CelCheckbox from "../../atoms/CelCheckbox/CelCheckbox";
 import Card from "../../atoms/Card/Card";
 import CelButton from "../../atoms/CelButton/CelButton";
+import Spinner from "../../atoms/Spinner/Spinner";
+import apiUtil from "../../../utils/api-util";
+import API from "../../../constants/API";
+import StaticScreen from "../StaticScreen/StaticScreen";
 
 @connect(
   state => ({
     theme: state.user.appSettings.theme,
     formData: state.forms.formData,
+    hodlCode: state.hodl.hodlCode,
+    callsInProgress: state.api.callsInProgress,
   }),
   dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
 )
@@ -27,14 +33,50 @@ class HODLViewCode extends Component {
   static propTypes = {};
   static defaultProps = {};
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      emptyState: false,
+    };
+  }
+
   static navigationOptions = () => ({
-    title: "HODL mode",
+    title: "HODL Mode",
     right: "profile",
+    gesturesEnabled: false,
   });
 
+  componentWillUnmount() {
+    const { actions } = this.props;
+    actions.clearForm();
+  }
+
+  checkEmail = async () => {
+    const { actions } = this.props;
+    const response = await actions.activateHodlMode();
+    if (response && response.success) {
+      this.setState({
+        emptyState: true,
+      });
+    }
+  };
+
   render() {
-    // const style = HodlDeactivateStyle();
-    const { formData, theme, actions } = this.props;
+    const style = HODLViewCodeStyles();
+    const { emptyState } = this.state;
+    const { formData, theme, actions, hodlCode, callsInProgress } = this.props;
+
+    if (emptyState)
+      return (
+        <StaticScreen emptyState={{ purpose: EMPTY_STATES.CHECK_YOUR_EMAIL }} />
+      );
+
+    const loading = apiUtil.areCallsInProgress(
+      [API.GET_HODL_CODE],
+      callsInProgress
+    );
+
     return (
       <RegularLayout padding={"0 0 0 0"}>
         <HeadingProgressBar steps={3} currentStep={3} />
@@ -50,13 +92,29 @@ class HODLViewCode extends Component {
             type={"H2"}
             weight={"bold"}
           >
-            How to deactivate HODL mode
+            How to deactivate HODL Mode
           </CelText>
           <CelText type={"H4"} align={"left"}>
-            When you want to deactivate HODL mode, you will need to type the
-            code below. So, it's very important to remember this code. the
-            deactivation process takes 24 hours.
+            {"When you're ready to deactivate HODL Mode, you will need to enter the unique security code below. \n" +
+              "\n" +
+              "You will NOT be able to access this code once you enable HODL Mode, so you must securely store this code now and remember it in order to deactivate HODL Mode in the future."}
           </CelText>
+
+          {!hodlCode ? (
+            <View style={style.spinner}>
+              <Spinner />
+            </View>
+          ) : (
+            <CelText
+              align={"center"}
+              type={"H1"}
+              weight={"300"}
+              margin={"20 0 20 0"}
+            >
+              {hodlCode}
+            </CelText>
+          )}
+
           <Card
             color={
               theme === THEMES.LIGHT
@@ -78,7 +136,8 @@ class HODLViewCode extends Component {
 
           <CelButton
             disabled={!formData.agreeHodlMode}
-            // onPress={() => console.log("send verification mode")}
+            onPress={() => this.checkEmail()}
+            loading={loading}
           >
             Send email verification
           </CelButton>

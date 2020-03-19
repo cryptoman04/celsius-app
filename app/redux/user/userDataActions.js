@@ -5,17 +5,19 @@ import Constants from "../../../constants";
 import ACTIONS from "../../constants/ACTIONS";
 import API from "../../constants/API";
 import { apiError, startApiCall } from "../api/apiActions";
-import { showMessage, openModal } from "../ui/uiActions";
+import { showMessage, openModal, closeModal } from "../ui/uiActions";
 import userProfileService from "../../services/user-profile-service";
 import { deleteSecureStoreKey } from "../../utils/expo-storage";
 import logger from "../../utils/logger-util";
 import { setFormErrors, updateFormField } from "../forms/formsActions";
-import { navigateTo } from "../nav/navActions";
+import { default as NavActions, navigateTo } from "../nav/navActions";
 import { MODALS } from "../../constants/UI";
 import apiUtil from "../../utils/api-util";
 import { getWalletSummary } from "../wallet/walletActions";
 import userDataService from "../../services/user-data-service";
 import { getUserPersonalInfoSuccess } from "./userProfileActions";
+import { getUserKYCStatus, isUserLoggedIn } from "../../utils/user-util";
+import { KYC_STATUSES } from "../../constants/DATA";
 
 const { SECURITY_STORAGE_AUTH_KEY } = Constants;
 
@@ -25,6 +27,8 @@ export {
   setUserAppSettings,
   getLinkedBankAccount,
   linkBankAccount,
+  setHodlProps,
+  getUserStatus,
 };
 
 /**
@@ -294,5 +298,69 @@ function setUserAppSettings(data) {
       dispatch(apiError(API.SET_APP_SETTINGS, e));
       dispatch(showMessage("error", e.msg));
     }
+  };
+}
+
+/**
+ * polling of userStatus (kyc, hodl) every 30 seconds
+ */
+
+function getUserStatus() {
+  return async (dispatch, getState) => {
+    const status = getUserKYCStatus();
+    const isLoggedIn = isUserLoggedIn();
+    const appInitialized = getState().app.appInitialized;
+    const activeScreen = getState().nav.activeScreen;
+
+    if (!isLoggedIn || !appInitialized || activeScreen === "VerifyProfile")
+      return;
+
+    dispatch(startApiCall(API.POLL_USER_DATA));
+
+    try {
+      const res = await userDataService.getUserStatus();
+      const hodlStatus = res.data.hodlModeStatus;
+      const kyc = res.data.kycStatus;
+      const newStatus = res.data.kycStatus.status;
+
+      dispatch({
+        type: ACTIONS.POLL_HODL_STATUS_SUCCESS,
+        hodlStatus,
+      });
+
+      dispatch({
+        type: ACTIONS.GET_KYC_STATUS_SUCCESS,
+        kyc,
+      });
+
+      if (newStatus === KYC_STATUSES.permanently_rejected) {
+        dispatch(closeModal());
+        return dispatch(NavActions.navigateTo("KYCFinalRejection"));
+      }
+
+      if (newStatus !== status) {
+        dispatch(closeModal());
+        if (newStatus === KYC_STATUSES.passed) {
+          return dispatch(NavActions.navigateTo("WalletLanding"));
+        }
+
+        if (newStatus === KYC_STATUSES.rejected) {
+          return dispatch(NavActions.navigateTo("WalletLanding"));
+        }
+      }
+    } catch (err) {
+      dispatch(showMessage("error", err.msg));
+      dispatch(apiError(API.POLL_USER_DATA, err));
+    }
+  };
+}
+
+/**
+ *
+ */
+function setHodlProps(activeHodlMode) {
+  return {
+    type: ACTIONS.SET_HODL_PROPS,
+    activeHodlMode,
   };
 }

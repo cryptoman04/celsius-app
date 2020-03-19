@@ -11,31 +11,55 @@ import RegularLayout from "../../layouts/RegularLayout/RegularLayout";
 import HeadingProgressBar from "../../atoms/HeadingProgressBar/HeadingProgressBar";
 import CelButton from "../../atoms/CelButton/CelButton";
 import { getPadding } from "../../../utils/styles-util";
+import StaticScreen from "../StaticScreen/StaticScreen";
+import { EMPTY_STATES } from "../../../constants/UI";
 
 @connect(
-  () => ({}),
+  state => ({
+    hodlStatus: state.hodl.hodlStatus,
+    activeHodlMode: state.user.appSettings.activeHodlMode,
+  }),
   dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
 )
 class HodlLanding extends Component {
   static propTypes = {};
   static defaultProps = {};
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeMode: false,
+    };
+  }
   static navigationOptions = () => ({
-    title: "HODL mode",
+    title: "HODL Mode",
     right: "profile",
   });
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.activeHodlMode !== prevState.activeMode) {
+      return {
+        activeMode: nextProps.activeHodlMode,
+      };
+    }
+  }
+
   render() {
     // const style = HodlLandingStyle();
-    const { actions } = this.props;
+    const { actions, hodlStatus } = this.props;
+    const { activeMode } = this.state;
+    const notInHodlMode = !hodlStatus.isActive;
+    const padding = notInHodlMode ? "0 0 0 0" : "20 20 100 20";
 
-    const isInHodlMode = false;
-
-    const padding = isInHodlMode ? "0 0 0 0" : "20 20 100 20";
+    if (activeMode)
+      return (
+        <StaticScreen emptyState={{ purpose: EMPTY_STATES.HODL_MODE_ACTIVE }} />
+      );
 
     return (
       <RegularLayout padding={padding}>
-        {isInHodlMode ? (
+        {notInHodlMode ? (
           <View>
             <HeadingProgressBar steps={3} currentStep={1} />
             <View
@@ -50,15 +74,15 @@ class HodlLanding extends Component {
                 type={"H2"}
                 weight={"bold"}
               >
-                What is HODL mode?
+                What is HODL Mode?
               </CelText>
               <CelText type={"H4"} align={"left"}>
-                {"HODL mode is a feature that gives you the ability to disable certain actions on your profile. This feature enhances your profile security and is very convenient if you prefer to HODL your cryptocurrencies. \n" +
-                  "\n" +
-                  "Just keep in mind, we will give you a code to deactivate HODL mode and you will need to remember it.\n" +
-                  "\n"}
+                {
+                  "HODL Mode is a security feature that gives you the ability to temporarily disable outgoing transactions from your Celsius account. You control when HODL Mode is activated, and it is an ideal feature for those that do not plan on withdrawing or transferring funds from their wallet for an extended period of time."
+                }
               </CelText>
               <CelButton
+                margin={"20 0 0 0"}
                 onPress={() => actions.navigateTo("HODLInfoCheckboxes")}
               >
                 Continue
@@ -73,20 +97,22 @@ class HodlLanding extends Component {
               type={"H2"}
               weight={"bold"}
             >
-              Deactivation of HODL mode
+              Deactivation of HODL Mode
             </CelText>
             <CelText type={"H4"} align={"left"}>
-              Text about what will happen if the user deactivates HODL mode.
-              Text about what will happen if the user deactivates HODL mode.
-              Text about what will happen if the user deactivates HODL mode.
-              Text about what will happen if the user deactivates HODL mode.
-              Text about what will happen if the user deactivates HODL mode.
+              {" Once you confirm to deactivate HODL Mode, please note: \n" +
+                "- HODL Mode will be deactivated after 24 hours \n" +
+                "- You will not be able to add new withdrawal addresses or change a whitelisted address until HODL mode is deactivated"}
             </CelText>
             <CelButton
-              onPress={() => actions.navigateTo("HodlDeactivateInfoCheckboxes")}
+              onPress={() =>
+                actions.navigateTo("VerifyProfile", {
+                  onSuccess: () => actions.navigateTo("HodlDeactivationCode"),
+                })
+              }
               margin={"20 0 0 0"}
             >
-              Deactivate HODL mode
+              Deactivate HODL Mode
             </CelButton>
           </View>
         )}

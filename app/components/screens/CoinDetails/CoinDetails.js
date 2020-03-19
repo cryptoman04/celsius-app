@@ -35,6 +35,7 @@ const { COLORS } = STYLES;
     coinAmount: state.graph.coinLastValue,
     appSettings: state.user.appSettings,
     interestCompliance: state.compliance.interest,
+    hodlStatus: state.hodl.hodlStatus,
   }),
   dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
 )
@@ -132,6 +133,7 @@ class CoinDetails extends Component {
       appSettings,
       buyCoinsSettings,
       interestCompliance,
+      hodlStatus,
     } = this.props;
     const coinDetails = this.getCoinDetails();
     const style = CoinDetailsStyle();
@@ -193,8 +195,10 @@ class CoinDetails extends Component {
                     <CelText type="H6">Deposit</CelText>
                   </View>
                 </TouchableOpacity>
-                <Separator vertical height={"35%"} top={20} />
-                {isCoinEligibleForCelPay && (
+                {isCoinEligibleForCelPay && !hodlStatus.isActive && (
+                  <Separator vertical height={"35%"} top={20} />
+                )}
+                {isCoinEligibleForCelPay && !hodlStatus.isActive && (
                   <TouchableOpacity
                     onPress={this.goToCelPay}
                     style={{
@@ -212,7 +216,7 @@ class CoinDetails extends Component {
                   </TouchableOpacity>
                 )}
 
-                {isCoinEligibleForCelPay && (
+                {isCoinEligibleForCelPay && !hodlStatus.isActive && (
                   <Separator vertical height={"35%"} top={20} />
                 )}
 
@@ -239,25 +243,27 @@ class CoinDetails extends Component {
                   </TouchableOpacity>
                 )}
 
-                {isCoinEligibleForBuying && (
+                {isCoinEligibleForBuying && !hodlStatus.isActive && (
                   <Separator vertical height={"35%"} top={20} />
                 )}
 
-                <TouchableOpacity
-                  style={style.buttons}
-                  onPress={() =>
-                    actions.navigateTo("WithdrawEnterAmount", {
-                      coin: coinDetails.short,
-                    })
-                  }
-                >
-                  <View style={style.buttonItself}>
-                    <View style={style.buttonIcon}>
-                      <Icon fill="primary" name="Withdraw" width="25" />
+                {!hodlStatus.isActive && (
+                  <TouchableOpacity
+                    style={style.buttons}
+                    onPress={() =>
+                      actions.navigateTo("WithdrawEnterAmount", {
+                        coin: coinDetails.short,
+                      })
+                    }
+                  >
+                    <View style={style.buttonItself}>
+                      <View style={style.buttonIcon}>
+                        <Icon fill="primary" name="Withdraw" width="25" />
+                      </View>
+                      <CelText type="H6">Withdraw</CelText>
                     </View>
-                    <CelText type="H6">Withdraw</CelText>
-                  </View>
-                </TouchableOpacity>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           </Card>

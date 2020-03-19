@@ -10,6 +10,7 @@ const base = {
     paddingVertical: 5,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 10,
   },
 };
 
