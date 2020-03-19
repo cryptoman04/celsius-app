@@ -22,9 +22,9 @@ import {
 const calculatePasswordScore = () => {
   const { formData } = store.getState().forms;
 
-  const names = [formData.firstName, formData.lastName];
+  const excludes = [formData.firstName, formData.lastName, formData.email, " "];
   if (formData.middleName) {
-    names.push(formData.middleName);
+    excludes.push(formData.middleName);
   }
   const pm = new PasswordMeter({
     minLength: {
@@ -45,7 +45,7 @@ const calculatePasswordScore = () => {
       message: SECURITY_STRENGTH_ITEMS[3].copy,
     },
     exclude: {
-      value: [names, formData.email, " "],
+      value: excludes,
       message: SECURITY_STRENGTH_ITEMS[4].copy,
     },
   });
@@ -53,18 +53,21 @@ const calculatePasswordScore = () => {
   let customStatus;
   switch (true) {
     case result.score < 80:
-      customStatus = SECURITY_STRENGTH_LEVEL[0];
+      customStatus = SECURITY_STRENGTH_LEVEL.WEAK;
       break;
     case result.score < 140:
-      customStatus = SECURITY_STRENGTH_LEVEL[1];
+      customStatus = SECURITY_STRENGTH_LEVEL.FAIR;
       break;
     case result.score < 200:
-      customStatus = SECURITY_STRENGTH_LEVEL[2];
+      customStatus = SECURITY_STRENGTH_LEVEL.GOOD;
       break;
     default:
-      customStatus = SECURITY_STRENGTH_LEVEL[3];
+      customStatus = SECURITY_STRENGTH_LEVEL.STRONG;
   }
 
+  if (!result.errors) {
+    result.errors = [];
+  }
   return {
     result,
     customStatus,

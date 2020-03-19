@@ -17,27 +17,35 @@ class PassStrengthMeter extends Component {
   handlePassStatus = () => {
     const status = calculatePasswordScore().customStatus;
     switch (status) {
-      case SECURITY_STRENGTH_LEVEL[0]:
+      case SECURITY_STRENGTH_LEVEL.WEAK:
         return {
-          level: SECURITY_STRENGTH_LEVEL[0],
+          level: SECURITY_STRENGTH_LEVEL.WEAK,
           color: STYLES.COLORS.RED,
         };
-      case SECURITY_STRENGTH_LEVEL[1]:
+      case SECURITY_STRENGTH_LEVEL.FAIR:
         return {
-          level: SECURITY_STRENGTH_LEVEL[1],
+          level: SECURITY_STRENGTH_LEVEL.FAIR,
           color: STYLES.COLORS.ORANGE,
         };
-      case SECURITY_STRENGTH_LEVEL[2]:
+      case SECURITY_STRENGTH_LEVEL.GOOD:
         return {
-          level: SECURITY_STRENGTH_LEVEL[2],
+          level: SECURITY_STRENGTH_LEVEL.GOOD,
           color: STYLES.COLORS.ORANGE,
         };
-      case SECURITY_STRENGTH_LEVEL[3]:
+      case SECURITY_STRENGTH_LEVEL.STRONG:
         return {
-          level: SECURITY_STRENGTH_LEVEL[3],
+          level: SECURITY_STRENGTH_LEVEL.STRONG,
           color: STYLES.COLORS.GREEN,
         };
     }
+  };
+
+  handleMeterLength = () => {
+    const result = calculatePasswordScore().result;
+    if (result.status === "needs requirement(s)") {
+      return "15%";
+    }
+    return `${result.percent}%`;
   };
 
   render() {
@@ -51,7 +59,7 @@ class PassStrengthMeter extends Component {
           style={[
             style.meterLine,
             {
-              width: `${calculatePasswordScore().result.percent}%`,
+              width: this.handleMeterLength(),
               borderColor: passStatus.color,
             },
           ]}

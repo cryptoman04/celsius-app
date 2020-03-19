@@ -15,10 +15,10 @@ class PassMeterTooltip extends Component {
   };
 
   handleSecurityItems = () => {
-    const score = calculatePasswordScore().result.errors || [];
+    const score = calculatePasswordScore().result.errors;
     const items = SECURITY_STRENGTH_ITEMS.map(i => {
       let status;
-      if ((score && !score.includes(i.copy)) || score === "undefined") {
+      if (!score.includes(i.copy)) {
         status = true;
       } else {
         status = false;

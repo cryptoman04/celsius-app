@@ -18,6 +18,7 @@ import RegisterPromoCodeCard from "../../molecules/RegisterPromoCodeCard/Registe
 import RegisterToUCard from "../../molecules/RegisterToUCard/RegisterToUCard";
 import Constants from "../../../../constants";
 import GoogleReCaptcha from "../../../utils/recaptcha-util";
+import calculatePasswordScore from "../../../utils/password-util";
 
 @connect(
   state => ({
@@ -107,9 +108,24 @@ class RegisterInitial extends Component {
     this.submitForm();
   };
 
+  disabledButton = () => {
+    const { formData } = this.props;
+    const fields = [
+      !!formData.firstName,
+      !!formData.lastName,
+      !!formData.email,
+      formData.termsOfUse,
+      calculatePasswordScore().result.score > 80,
+    ];
+    if (fields.every(x => x)) {
+      return false;
+    }
+    return true;
+  };
+
   renderCaptcha = () => {
     const { RECAPTCHA_KEY, RECAPTCHA_URL } = Constants;
-    const { formData } = this.props;
+
     return (
       <GoogleReCaptcha
         siteKey={RECAPTCHA_KEY}
@@ -118,7 +134,7 @@ class RegisterInitial extends Component {
         onMessage={this.onMessage}
         reCaptchaPassed={this.reCaptchaPassed}
         type={"register"}
-        buttonDisabled={!formData.termsOfUse}
+        buttonDisabled={this.disabledButton()}
       />
     );
   };

@@ -190,7 +190,6 @@ const STATE_MACHINE = {
   // Referred user HODL award failed during the 3 months
   REFERRED_HODL_REJECTED: "REFERRED_HODL_REJECTED", // NOTE: new type
   // Referrer user award for the initial $1K deposit
-  // Referrer user award for the initial $1K deposit
   REFERRER_INITIAL: "REFERRER_INITIAL", // NOTE: renamed from REFERRER
   // Referrer user HODL award waiting for 3 months to expire
   REFERRER_HODL_PENDING: "REFERRER_HODL_PENDING", // NOTE: new type
@@ -372,7 +371,12 @@ const SECURITY_STRENGTH_ITEMS = [
   },
 ];
 
-const SECURITY_STRENGTH_LEVEL = ["Week", "Fair", "Good", "Strong"];
+const SECURITY_STRENGTH_LEVEL = {
+  WEAK: "Weak",
+  FAIR: "Fair",
+  GOOD: "Good",
+  STRONG: "Strong",
+};
 
 export {
   BLOCKEXPLORERS,
