@@ -10,6 +10,7 @@ const base = {
     alignSelf: "center",
     padding: 10,
     elevation: 100,
+    zIndex: 1000,
   },
   securityStrengthItem: {
     flexDirection: "row",

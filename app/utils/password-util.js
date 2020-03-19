@@ -28,7 +28,7 @@ const calculatePasswordScore = () => {
   }
   const pm = new PasswordMeter({
     minLength: {
-      value: 5,
+      value: 8,
       message: SECURITY_STRENGTH_ITEMS[0].copy,
     },
     uppercaseLettersMinLength: {
@@ -45,7 +45,7 @@ const calculatePasswordScore = () => {
       message: SECURITY_STRENGTH_ITEMS[3].copy,
     },
     exclude: {
-      value: names,
+      value: [names, formData.email, " "],
       message: SECURITY_STRENGTH_ITEMS[4].copy,
     },
   });
@@ -63,13 +63,6 @@ const calculatePasswordScore = () => {
       break;
     default:
       customStatus = SECURITY_STRENGTH_LEVEL[3];
-  }
-  if (!result.errors) {
-    return {
-      ...result,
-      errors: [],
-      customStatus,
-    };
   }
 
   return {

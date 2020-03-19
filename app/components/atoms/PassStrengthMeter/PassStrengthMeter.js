@@ -48,15 +48,13 @@ class PassStrengthMeter extends Component {
     return (
       <View style={[customStyle, style.container]}>
         <View
-          style={{
-            top: 0,
-            left: 0,
-            position: "absolute",
-            width: `${calculatePasswordScore().percent}%`,
-            // width: "100%",
-            borderWidth: 2,
-            borderColor: passStatus.color,
-          }}
+          style={[
+            style.meterLine,
+            {
+              width: `${calculatePasswordScore().result.percent}%`,
+              borderColor: passStatus.color,
+            },
+          ]}
         />
         <View style={{ flexDirection: "row" }}>
           <CelText

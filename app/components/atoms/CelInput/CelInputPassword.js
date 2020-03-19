@@ -127,24 +127,27 @@ class CelInputPassword extends Component {
               </>
             )}
           </View>
-          {!!value && showPasswordTooltip && (
-            <PassStrengthMeter
-              customStyle={{
-                flex: 1,
-                width: "100%",
-                // marginHorizontal: -15,
-                position: "absolute",
-                bottom: -25,
+
+          <View>
+            <CelInputText
+              {...this.props}
+              secureTextEntry={!visible}
+              style={{
+                paddingRight: 15,
               }}
             />
-          )}
-          <CelInputText
-            {...this.props}
-            secureTextEntry={!visible}
-            style={{
-              paddingRight: 15,
-            }}
-          />
+            {!!value && showPasswordTooltip && (
+              <PassStrengthMeter
+                customStyle={{
+                  flex: 1,
+                  width: "110%",
+                  marginHorizontal: "-5%",
+                  position: "absolute",
+                  bottom: -22,
+                }}
+              />
+            )}
+          </View>
         </View>
         {!!value && !disabled && (
           <TouchableOpacity

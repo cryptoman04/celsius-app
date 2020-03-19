@@ -366,7 +366,10 @@ const SECURITY_STRENGTH_ITEMS = [
   { copy: "Capital letter - at least one." },
   { copy: "Numbers – at least one." },
   { copy: "Special characters – at least one." },
-  { copy: "Can’t contain your name or parts of the your’s full name." },
+  {
+    copy:
+      "Can’t contain your name or parts of the your’s full name, username and spaces.",
+  },
 ];
 
 const SECURITY_STRENGTH_LEVEL = ["Week", "Fair", "Good", "Strong"];

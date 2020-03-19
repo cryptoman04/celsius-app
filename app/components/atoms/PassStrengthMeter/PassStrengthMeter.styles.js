@@ -6,6 +6,12 @@ const base = {
     flex: 1,
     flexDirection: "row",
   },
+  meterLine: {
+    top: 0,
+    left: 0,
+    position: "absolute",
+    borderWidth: 2,
+  },
 };
 
 const themed = {

@@ -14,12 +14,8 @@ class PassMeterTooltip extends Component {
     customStyle: PropTypes.instanceOf(Object),
   };
 
-  // handleScore = () => {
-  //   const score = calculatePasswordScore()
-  // }
-
   handleSecurityItems = () => {
-    const score = calculatePasswordScore().result.errors;
+    const score = calculatePasswordScore().result.errors || [];
     const items = SECURITY_STRENGTH_ITEMS.map(i => {
       let status;
       if ((score && !score.includes(i.copy)) || score === "undefined") {
@@ -38,6 +34,7 @@ class PassMeterTooltip extends Component {
   render() {
     const { customStyle } = this.props;
     const style = PassMeterTooltipStyle();
+
     this.handleSecurityItems();
     return (
       <View style={[style.container, customStyle]}>
