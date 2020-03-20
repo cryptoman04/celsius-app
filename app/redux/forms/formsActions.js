@@ -6,6 +6,7 @@ export {
   setFormErrors,
   updateFormField,
   updateFormFields,
+  setActiveField,
 };
 
 /**
@@ -70,5 +71,12 @@ function updateFormFields(fields) {
   return {
     type: ACTIONS.UPDATE_FORM_FIELDS,
     fields,
+  };
+}
+
+function setActiveField(activeField) {
+  return {
+    type: ACTIONS.SET_ACTIVE_FIELD,
+    activeField,
   };
 }

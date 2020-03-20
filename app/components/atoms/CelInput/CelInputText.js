@@ -117,13 +117,15 @@ class CelInput extends Component {
   };
 
   onInputFocus = () => {
-    const { onFocus } = this.props;
+    const { onFocus, actions, field } = this.props;
+    actions.setActiveField(field);
     if (onFocus) onFocus();
     this.setState({ active: true });
   };
 
   onInputBlur = () => {
-    const { onBlur } = this.props;
+    const { onBlur, actions } = this.props;
+    actions.setActiveField(null);
     if (onBlur) onBlur();
     this.setState({ active: false });
     this.handleChangeText(this.state.textValue);

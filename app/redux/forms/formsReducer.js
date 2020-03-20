@@ -6,6 +6,7 @@ import ACTIONS from "../../constants/ACTIONS";
 const initialState = {
   formData: {},
   formErrors: {},
+  activeField: null,
 };
 
 export default function formsReducer(state = initialState, action) {
@@ -61,7 +62,12 @@ export default function formsReducer(state = initialState, action) {
         formData: {
           ...state.formData,
           activeSearch: false,
-        }
+        },
+      };
+    case ACTIONS.SET_ACTIVE_FIELD:
+      return {
+        ...state,
+        activeField: action.activeField,
       };
     default:
       return { ...state };

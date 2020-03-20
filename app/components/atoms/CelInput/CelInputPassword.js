@@ -8,6 +8,7 @@ import { THEMES } from "../../../constants/UI";
 import CelText from "../CelText/CelText";
 import PassMeterTooltip from "../PassMeterTooltip/PassMeterTooltip";
 import PassStrengthMeter from "../PassStrengthMeter/PassStrengthMeter";
+import store from "../../../redux/store";
 
 class CelInputPassword extends Component {
   static propTypes = {
@@ -84,7 +85,7 @@ class CelInputPassword extends Component {
     const fillColor =
       theme !== THEMES.DARK ? STYLES.COLORS.GRAY : STYLES.COLORS.WHITE;
     const iconName = visible ? "HIDE" : "SHOW";
-
+    const activeField = store.getState().forms.activeField;
     return (
       <React.Fragment>
         <View>
@@ -95,7 +96,7 @@ class CelInputPassword extends Component {
               left: 0,
             }}
           >
-            {!!value && showPasswordTooltip && (
+            {!!value && showPasswordTooltip && activeField === "password" && (
               <>
                 <View
                   style={
@@ -136,7 +137,7 @@ class CelInputPassword extends Component {
                 paddingRight: 15,
               }}
             />
-            {!!value && showPasswordTooltip && (
+            {!!value && activeField === "password" && (
               <PassStrengthMeter
                 customStyle={{
                   flex: 1,
