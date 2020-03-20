@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { TouchableOpacity, View } from "react-native";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import STYLES from "../../../constants/STYLES";
 import CelInputText from "./CelInputText";
@@ -8,8 +10,14 @@ import { THEMES } from "../../../constants/UI";
 import CelText from "../CelText/CelText";
 import PassMeterTooltip from "../PassMeterTooltip/PassMeterTooltip";
 import PassStrengthMeter from "../PassStrengthMeter/PassStrengthMeter";
-import store from "../../../redux/store";
+import * as appActions from "../../../redux/actions";
 
+@connect(
+  state => ({
+    forms: state.forms,
+  }),
+  dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
+)
 class CelInputPassword extends Component {
   static propTypes = {
     type: PropTypes.oneOf([
@@ -80,12 +88,13 @@ class CelInputPassword extends Component {
       disabled,
       showPasswordTooltip,
       tooTipPositionTop,
+      forms,
     } = this.props;
     const { visible } = this.state;
     const fillColor =
       theme !== THEMES.DARK ? STYLES.COLORS.GRAY : STYLES.COLORS.WHITE;
     const iconName = visible ? "HIDE" : "SHOW";
-    const activeField = store.getState().forms.activeField;
+    const activeField = forms.activeField;
     return (
       <React.Fragment>
         <View>
