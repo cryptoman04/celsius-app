@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, Platform } from "react-native";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -89,6 +89,7 @@ class CelInputPassword extends Component {
       showPasswordTooltip,
       tooTipPositionTop,
       forms,
+      field,
     } = this.props;
     const { visible } = this.state;
     const fillColor =
@@ -105,7 +106,7 @@ class CelInputPassword extends Component {
               left: 0,
             }}
           >
-            {!!value && showPasswordTooltip && activeField === "password" && (
+            {!!value && showPasswordTooltip && activeField === field && (
               <>
                 <View
                   style={
@@ -146,14 +147,14 @@ class CelInputPassword extends Component {
                 paddingRight: 15,
               }}
             />
-            {!!value && activeField === "password" && (
+            {!!value && activeField === field && (
               <PassStrengthMeter
                 customStyle={{
                   flex: 1,
                   width: "110%",
                   marginHorizontal: "-5%",
                   position: "absolute",
-                  bottom: -22,
+                  bottom: Platform.OS === "android" ? -20 : -28,
                 }}
               />
             )}
