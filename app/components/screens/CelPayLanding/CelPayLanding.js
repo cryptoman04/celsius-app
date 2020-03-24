@@ -39,6 +39,14 @@ class CelPayLanding extends Component {
     right: "profile",
   });
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      refreshing: false
+    }
+  }
+
   componentDidMount() {
     const { navHistory, actions } = this.props;
     if (!counter) {
@@ -46,6 +54,17 @@ class CelPayLanding extends Component {
     }
     counter += 1;
     mixpanelAnalytics.navigatedToCelPay(navHistory[0]);
+  }
+
+  refresh = async () => {
+    const {actions} = this.props
+    this.setState({
+      refreshing: true
+    })
+    await actions.getAllTransactions()
+    this.setState({
+      refreshing: false
+    })
   }
 
   sendAsLink = () => {
@@ -73,6 +92,8 @@ class CelPayLanding extends Component {
       celPaySettings,
       hodlStatus,
     } = this.props;
+
+    const {refreshing} = this.state
 
     if (kycStatus !== KYC_STATUSES.pending && !hasPassedKYC())
       return (
@@ -110,7 +131,7 @@ class CelPayLanding extends Component {
       );
 
     return (
-      <RegularLayout>
+      <RegularLayout refreshing={refreshing} pullToRefresh={this.refresh}>
         <MultiInfoCardButton
           textButton={"Share as a link"}
           explanation={"Send a direct link with your preferred apps."}

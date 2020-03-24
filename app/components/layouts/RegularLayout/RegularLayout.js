@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, SafeAreaView, RefreshControl, View } from "react-native";
+import { ScrollView, SafeAreaView, RefreshControl, View, Platform } from "react-native";
 import PropTypes from "prop-types";
 import { withNavigationFocus } from "react-navigation";
 import { connect } from "react-redux";
@@ -61,7 +61,7 @@ class RegularLayout extends Component {
       <React.Fragment>
         {refreshing && (
           <View style={style.loaderView}>
-            <Spinner />
+            {Platform.OS === "ios" && <Spinner />}
           </View>
         )}
         <ScrollView
