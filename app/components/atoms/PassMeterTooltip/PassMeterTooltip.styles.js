@@ -9,9 +9,6 @@ const base = {
     borderRadius: 8,
     alignSelf: "center",
     padding: 10,
-    // elevation: 100,
-    // zIndex: 1000,
-    // TODO find way to set tooltip in front of button
   },
   securityStrengthItem: {
     flexDirection: "row",

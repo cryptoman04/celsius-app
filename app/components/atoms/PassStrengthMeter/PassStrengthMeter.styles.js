@@ -10,7 +10,7 @@ const base = {
     top: 0,
     left: 0,
     position: "absolute",
-    borderWidth: 2,
+    borderWidth: 1,
   },
 };
 

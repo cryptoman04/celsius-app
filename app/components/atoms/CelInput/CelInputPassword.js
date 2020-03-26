@@ -90,6 +90,7 @@ class CelInputPassword extends Component {
       tooTipPositionTop,
       forms,
       field,
+      showPassMeter,
     } = this.props;
     const { visible } = this.state;
     const fillColor =
@@ -147,7 +148,7 @@ class CelInputPassword extends Component {
                 paddingRight: 15,
               }}
             />
-            {!!value && showPasswordTooltip && activeField === field && (
+            {!!value && showPassMeter &&  (
               <PassStrengthMeter
                 password={value}
                 customStyle={{
@@ -155,7 +156,7 @@ class CelInputPassword extends Component {
                   width: "110%",
                   marginHorizontal: "-5%",
                   position: "absolute",
-                  bottom: Platform.OS === "android" ? -20 : -28,
+                  bottom: Platform.OS === "android" ? -22 : -26,
                 }}
               />
             )}
