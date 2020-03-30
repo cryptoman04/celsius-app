@@ -72,7 +72,7 @@ class ChangePassword extends Component {
             this.pass = input;
           }}
           showPasswordTooltip
-          tooTipPositionTop
+          toolTipPositionTop
           showPassMeter
         />
         <CelButton

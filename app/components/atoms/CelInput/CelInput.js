@@ -67,7 +67,7 @@ class CelInput extends Component {
     rightText: PropTypes.string,
     theme: PropTypes.oneOf(Object.values(THEMES)),
     showPasswordTooltip: PropTypes.bool,
-    tooTipPositionTop: PropTypes.bool,
+    toolTipPositionTop: PropTypes.bool,
     showPassMeter: PropTypes.bool,
   };
 
@@ -86,7 +86,7 @@ class CelInput extends Component {
     border: false,
     rightText: null,
     showPasswordTooltip: false,
-    tooTipPositionTop: true,
+    toolTipPositionTop: true,
     showPassMeter: false,
   };
 
@@ -139,7 +139,7 @@ class CelInput extends Component {
       helperButton,
       rightText,
       showPasswordTooltip,
-      tooTipPositionTop,
+      toolTipPositionTop,
       showPassMeter
     } = this.props;
     const inputStyle = this.getInputStyle();
@@ -156,7 +156,7 @@ class CelInput extends Component {
             <CelInputPassword
               {...this.props}
               showPasswordTooltip={showPasswordTooltip}
-              tooTipPositionTop={tooTipPositionTop}
+              toolTipPositionTop={toolTipPositionTop}
               showPassMeter={showPassMeter}
             />
           </View>
