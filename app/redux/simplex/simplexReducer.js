@@ -15,6 +15,12 @@ export default function simplexReducer(state = initialState(), action) {
   const quotes = {};
 
   switch (action.type) {
+    case ACTIONS.CLEAR_SIMPLEX_DATA:
+      return {
+        ...state,
+        simplexData: {},
+        quotes: {}
+      }
     case ACTIONS.GET_QUOTE_SUCCESS:
       return {
         ...state,

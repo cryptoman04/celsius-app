@@ -13,6 +13,7 @@ export {
   simplexCreatePaymentRequest,
   getAllSimplexPayments,
   getSimplexQuoteForCoin,
+  clearSimplexData
 };
 
 /**
@@ -21,6 +22,7 @@ export {
 function simplexGetQuote() {
   return async (dispatch, getState) => {
     const { formData } = getState().forms;
+    let quote
     try {
       const requestedCurrency = formData.isFiat
         ? formData.fiatCoin
@@ -32,12 +34,13 @@ function simplexGetQuote() {
       if (Number(amount)) {
         dispatch(startApiCall(API.GET_QUOTE));
 
-        const quote = await simplexService.getQuote(
+        quote = await simplexService.getQuote(
           formData.cryptoCoin,
           formData.fiatCoin,
           requestedCurrency,
           amount
         );
+
 
         dispatch({
           type: ACTIONS.GET_QUOTE_SUCCESS,
@@ -175,4 +178,10 @@ function getAllSimplexPayments() {
       dispatch(showMessage("error", err.msg));
     }
   };
+}
+
+function clearSimplexData() {
+  return {
+    type: ACTIONS.CLEAR_SIMPLEX_DATA
+  }
 }

@@ -31,6 +31,7 @@ import { getTheme } from "../../../utils/styles-util";
     currencies: state.currencies.rates,
     simplexData: state.simplex.simplexData,
     callsInProgress: state.api.callsInProgress,
+    activeScreen: state.nav.activeScreen,
   }),
   dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
 )
@@ -49,7 +50,6 @@ class GetCoinsEnterAmount extends Component {
       currencies,
       depositCompliance,
       buyCoinsSettings,
-      actions,
     } = this.props;
 
     const availableCryptoCoins =
@@ -63,17 +63,33 @@ class GetCoinsEnterAmount extends Component {
           }))
         : [];
 
-    actions.updateFormFields({
-      amountFiat: "",
-      amountCrypto: "",
-      isFiat: false,
-      fiatCoin: "USD",
-      cryptoCoin: "ETH",
-    });
+    this.initForm()
 
     this.state = {
       availableCryptoCoins,
     };
+  }
+
+  // componentWillUpdate(nextProps) {
+  //   const { activeScreen } = this.props;
+  //
+  //   if (activeScreen !== nextProps.activeScreen &&
+  //     nextProps.activeScreen === "GetCoinsEnterAmount") {
+  //     this.initForm()
+  //     console.log("evo");
+  //   }
+  // }
+
+  initForm = () => {
+    const {actions} = this.props
+    actions.clearSimplexData()
+    actions.updateFormFields({
+      amountFiat: "",
+      amountCrypto: "",
+      isFiat: true,
+      fiatCoin: "USD",
+      cryptoCoin: "ETH",
+    });
   }
 
   handleNextStep = () => {
@@ -157,6 +173,7 @@ class GetCoinsEnterAmount extends Component {
     await actions.simplexGetQuote();
     const { simplexData } = this.props;
 
+
     if (formData.isFiat) {
       actions.updateFormField(
         "amountCrypto",
@@ -196,7 +213,7 @@ class GetCoinsEnterAmount extends Component {
       amountFiat: formData.amountFiat || "",
       isFiat: !!formData.amountFiat,
     });
-    if (formData.amountFiat) {
+    if (formData.amountFiat && formData.amountCrypto) {
       await actions.simplexGetQuote();
       const { simplexData } = this.props;
       actions.updateFormField(
