@@ -29,7 +29,10 @@ class GetCoinsConfirmModal extends Component {
     const { actions } = this.props;
 
     actions.navigateTo("VerifyProfile", {
-      onSuccess: () => actions.simplexCreatePaymentRequest(),
+      onSuccess: async () => {
+        await actions.simplexCreatePaymentRequest()
+        actions.navigateTo("Simplex")
+      },
     });
     actions.closeModal();
   };

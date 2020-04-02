@@ -28,7 +28,7 @@ PODS:
   - Branch (0.29.0):
     - Branch/Core (= 0.29.0)
   - Branch/Core (0.29.0)
-  - CodePush (6.1.0):
+  - CodePush (6.1.1):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.7)
     - React
@@ -157,17 +157,17 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - Permission-Camera (2.0.9):
+  - Permission-Camera (2.0.10):
     - RNPermissions
-  - Permission-Contacts (2.0.9):
+  - Permission-Contacts (2.0.10):
     - RNPermissions
-  - Permission-LocationWhenInUse (2.0.9):
+  - Permission-LocationWhenInUse (2.0.10):
     - RNPermissions
-  - Permission-MediaLibrary (2.0.9):
+  - Permission-MediaLibrary (2.0.10):
     - RNPermissions
-  - Permission-Microphone (2.0.9):
+  - Permission-Microphone (2.0.10):
     - RNPermissions
-  - Permission-PhotoLibrary (2.0.9):
+  - Permission-PhotoLibrary (2.0.10):
     - RNPermissions
   - Protobuf (3.11.4)
   - QBImagePickerController (3.4.0)
@@ -352,13 +352,13 @@ PODS:
   - react-native-branch (4.2.1):
     - Branch (= 0.29.0)
     - React
-  - react-native-camera (3.19.1):
+  - react-native-camera (3.20.0):
     - React
-    - react-native-camera/RCT (= 3.19.1)
-    - react-native-camera/RN (= 3.19.1)
-  - react-native-camera/RCT (3.19.1):
+    - react-native-camera/RCT (= 3.20.0)
+    - react-native-camera/RN (= 3.20.0)
+  - react-native-camera/RCT (3.20.0):
     - React
-  - react-native-camera/RN (3.19.1):
+  - react-native-camera/RN (3.20.0):
     - React
   - react-native-cameraroll (1.4.1):
     - React
@@ -390,7 +390,7 @@ PODS:
     - React
   - react-native-netinfo (4.7.0):
     - React
-  - react-native-slider (2.0.8):
+  - react-native-slider (2.0.9):
     - React
   - react-native-splash-screen (3.2.0):
     - React
@@ -431,7 +431,7 @@ PODS:
     - React-cxxreact (= 0.61.4)
     - React-jsi (= 0.61.4)
     - ReactCommon/jscallinvoker (= 0.61.4)
-  - RNCPushNotificationIOS (1.0.7):
+  - RNCPushNotificationIOS (1.0.6):
     - React
   - RNDeviceInfo (5.5.3):
     - React
@@ -452,7 +452,7 @@ PODS:
     - React-Core
     - React-RCTImage
     - RSKImageCropper
-  - RNPermissions (2.0.9):
+  - RNPermissions (2.0.10):
     - React
   - RNReanimated (1.7.0):
     - React
@@ -460,8 +460,12 @@ PODS:
     - React
   - RNSVG (9.13.6):
     - React
+  - RNUxcam (5.1.15):
+    - React
+    - UXCam (~> 3.1.13)
   - RSKImageCropper (2.2.3)
   - SSZipArchive (2.2.2)
+  - UXCam (3.1.15)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -530,6 +534,7 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - RNUxcam (from `../node_modules/react-native-ux-cam`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -566,6 +571,7 @@ SPEC REPOS:
     - QBImagePickerController
     - RSKImageCropper
     - SSZipArchive
+    - UXCam
 
 EXTERNAL SOURCES:
   appcenter:
@@ -690,6 +696,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  RNUxcam:
+    :path: "../node_modules/react-native-ux-cam"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -704,7 +712,7 @@ SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   Branch: 6e7421e1f3c0adebdf80008a40a74969b2603cf8
-  CodePush: 4168faf8315b3629f047929b3c161f64c24861be
+  CodePush: bb7e03266a59b81c45d67f518dd5eb30aeb09b1e
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: feb35a6b7f7b50f367be07f34012f34a79282fa3
   FBReactNativeSpec: 51477b84b1bf7ab6f9ef307c24e3dd675391be44
@@ -731,12 +739,12 @@ SPEC CHECKSUMS:
   JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
   Mixpanel: 446b6e7713aa34a9a3516ff7648d56551384fc94
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  Permission-Camera: 8fe4753b02396489b11c5089e4f57bab7fe1ef42
-  Permission-Contacts: 73d99eab3d1a397a2cd196ee12541548b9a7b9bc
-  Permission-LocationWhenInUse: 9133db2ae6ce48da6ca513ec44a24ccce613fe4f
-  Permission-MediaLibrary: 753f49bb6e08e34347e8a781263db44750b4b73e
-  Permission-Microphone: 735c46c5a8e2ace954897680def376186bad1446
-  Permission-PhotoLibrary: 42d41b53adefcfa94f42fb628f143d97136120bd
+  Permission-Camera: a8f6007d17b02ed8a2d6bac1c37c2fd5df9b4e8a
+  Permission-Contacts: ac39cd8b11b8931482bf68fc3fa08dbd7ece909d
+  Permission-LocationWhenInUse: 4a2764d2efe09a1f6c7a00dfbbb863149240311a
+  Permission-MediaLibrary: 5415987502e23b68d2df7da189cb08d52a6bce00
+  Permission-Microphone: b7405c96b677dc44ea262db0b5d30ec21eca337e
+  Permission-PhotoLibrary: e59a7a687e002e8c8c46946c26520934ba85a688
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   RCTRequired: f3b3fb6f4723e8e52facb229d0c75fdc76773849
@@ -752,7 +760,7 @@ SPEC CHECKSUMS:
   react-native-appsflyer: b601a021165240426b58d3e67cfeb503ecde1c3f
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-branch: cc611a2d0e7e6c7c4cafebc8e59065b89c38002b
-  react-native-camera: 9b410bc370c57513a6e7d5b20d516c86d5dae703
+  react-native-camera: 44202c8bde2c927560e80444740602ff746028c6
   react-native-cameraroll: 875e31fc43d4a5d8694c85a71c53dcf42f72f608
   react-native-contacts: be6cde1ffc9c0196fbb57d987b9d40f12b85989c
   react-native-fbsdk: c35d42169e64aaf66f01713c1e18d0674f7f6519
@@ -761,7 +769,7 @@ SPEC CHECKSUMS:
   react-native-image-editor: 2a796811bc48babcf2f1594b15d6bfe6968e7e63
   react-native-mixpanel: d644efe1ca33d2646d5cba29e24a13ebc9b37209
   react-native-netinfo: ddaca8bbb9e6e914b1a23787ccb879bc642931c9
-  react-native-slider: 3a1cfd00c9c31068251b536822f7192e8d1d6b6f
+  react-native-slider: e51492f1264d882a8815b71c5870f8978e52887d
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-webview: db4682f1698ab4b17a5e88f951031d203ff8aea8
   React-RCTActionSheet: 7369b7c85f99b6299491333affd9f01f5a130c22
@@ -774,21 +782,23 @@ SPEC CHECKSUMS:
   React-RCTText: 21934e0a51d522abcd0a275407e80af45d6fd9ec
   React-RCTVibration: 0f76400ee3cec6edb9c125da49fed279340d145a
   ReactCommon: a6a294e7028ed67b926d29551aa9394fd989c24c
-  RNCPushNotificationIOS: eea954fa69537d4a8db898fe1b1a06e2b7e15841
+  RNCPushNotificationIOS: 05262c52fcfb861a2b79aa8e51cad66263c9ea52
   RNDeviceInfo: 310c1f43d418d950a193c7650de2f9559c906048
   RNFBApp: 7d4006751de8bb5cafa2e8d2e7d94ee250df81db
   RNFBMessaging: 51cc7f6beaf4c4feac6f18ea941bba5854e3d9c6
   RNGestureHandler: dde546180bf24af0b5f737c8ad04b6f3fa51609a
   RNGoogleSignin: a10b849c165088c737d4465de6c2062f24d06002
   RNImageCropPicker: 9d1a7eea4f8368fc479cbd2bf26459bd3c74d9aa
-  RNPermissions: 2f74237e97b08beda01e914301e12524ddddf5b8
+  RNPermissions: 1008d3511fee0e25739cf81c4af0d1b2248f1053
   RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
   RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
   RNSVG: 8ba35cbeb385a52fd960fd28db9d7d18b4c2974f
+  RNUxcam: b9c9894811487add76986d8d018d75ca8bef5839
   RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
+  UXCam: d9fe256ef297c6b41d411d1654e51acdc198c157
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
 PODFILE CHECKSUM: a981a1ef5beaa61a94a8f3f0dfec42f28bcb4895
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

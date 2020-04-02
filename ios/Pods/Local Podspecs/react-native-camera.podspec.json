@@ -1,6 +1,6 @@
 {
   "name": "react-native-camera",
-  "version": "3.19.1",
+  "version": "3.20.0",
   "summary": "A Camera component for React Native. Also reads barcodes.",
   "description": "A Camera component for React Native. Also reads barcodes.",
   "license": "MIT AND Apache-2.0 AND BSD-3-Clause",
@@ -8,16 +8,26 @@
   "homepage": "https://github.com/react-native-community/react-native-camera",
   "source": {
     "git": "https://github.com/react-native-community/react-native-camera",
-    "tag": "v3.19.1"
+    "tag": "v3.20.0"
   },
   "requires_arc": true,
   "platforms": {
     "ios": "9.0"
   },
-  "default_subspecs": ["RN", "RCT"],
-  "preserve_paths": ["LICENSE", "README.md", "package.json", "index.js"],
+  "default_subspecs": [
+    "RN",
+    "RCT"
+  ],
+  "preserve_paths": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "index.js"
+  ],
   "dependencies": {
-    "React": []
+    "React": [
+
+    ]
   },
   "subspecs": [
     {
@@ -31,28 +41,52 @@
     {
       "name": "TextDetector",
       "dependencies": {
-        "react-native-camera/RN": [],
-        "react-native-camera/RCT": [],
-        "Firebase/MLVision": [],
-        "Firebase/MLVisionTextModel": []
+        "react-native-camera/RN": [
+
+        ],
+        "react-native-camera/RCT": [
+
+        ],
+        "Firebase/MLVision": [
+
+        ],
+        "Firebase/MLVisionTextModel": [
+
+        ]
       }
     },
     {
       "name": "FaceDetectorMLKit",
       "dependencies": {
-        "react-native-camera/RN": [],
-        "react-native-camera/RCT": [],
-        "Firebase/MLVision": [],
-        "Firebase/MLVisionFaceModel": []
+        "react-native-camera/RN": [
+
+        ],
+        "react-native-camera/RCT": [
+
+        ],
+        "Firebase/MLVision": [
+
+        ],
+        "Firebase/MLVisionFaceModel": [
+
+        ]
       }
     },
     {
       "name": "BarcodeDetectorMLKit",
       "dependencies": {
-        "react-native-camera/RN": [],
-        "react-native-camera/RCT": [],
-        "Firebase/MLVision": [],
-        "Firebase/MLVisionBarcodeModel": []
+        "react-native-camera/RN": [
+
+        ],
+        "react-native-camera/RCT": [
+
+        ],
+        "Firebase/MLVision": [
+
+        ],
+        "Firebase/MLVisionBarcodeModel": [
+
+        ]
       }
     }
   ]

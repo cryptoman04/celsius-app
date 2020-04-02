@@ -20,10 +20,17 @@
   "platforms": {
     "ios": "9.0"
   },
-  "preserve_paths": ["LICENSE", "README.md"],
+  "preserve_paths": [
+    "LICENSE",
+    "README.md"
+  ],
   "source_files": "ios/RNGoogleSignin/*.{h,m}",
   "dependencies": {
-    "React": [],
-    "GoogleSignIn": ["~> 5.0.0"]
+    "React": [
+
+    ],
+    "GoogleSignIn": [
+      "~> 5.0.0"
+    ]
   }
 }

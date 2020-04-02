@@ -17,9 +17,17 @@
     "ios": "8.0"
   },
   "dependencies": {
-    "RSKImageCropper": [],
-    "QBImagePickerController": [],
-    "React-Core": [],
-    "React-RCTImage": []
+    "RSKImageCropper": [
+
+    ],
+    "QBImagePickerController": [
+
+    ],
+    "React-Core": [
+
+    ],
+    "React-RCTImage": [
+
+    ]
   }
 }

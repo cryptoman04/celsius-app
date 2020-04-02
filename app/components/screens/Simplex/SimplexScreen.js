@@ -7,6 +7,8 @@ import * as appActions from "../../../redux/actions";
 import mixpanelAnalytics from "../../../utils/mixpanel-analytics";
 import LoadingState from "../../atoms/LoadingState/LoadingState";
 import Constants from "../../../../constants";
+import store from "../../../redux/store";
+import { navigateTo } from "../../../redux/nav/navActions";
 
 // fix https://github.com/facebook/react-native/issues/10865
 const patchPostMessageJsCode = `(${String(function() {
@@ -34,6 +36,10 @@ const patchPostMessageJsCode = `(${String(function() {
 class SimplexScreen extends Component {
   static navigationOptions = () => ({
     title: "Get Coins",
+    gesturesEnabled: false,
+    customBack: () => {
+      store.dispatch(navigateTo("WalletLanding"));
+    }
   });
 
   constructor(props) {

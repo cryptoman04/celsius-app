@@ -72,6 +72,7 @@ function navigateBack(backScreenName) {
  */
 
 function resetToScreen(screenName, params) {
+  userBehavior.navigated(screenName);
   return () => {
     _navigator.dispatch(
       StackActions.reset({

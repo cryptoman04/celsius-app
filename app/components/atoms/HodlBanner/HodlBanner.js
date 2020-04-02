@@ -19,7 +19,7 @@ class HodlBanner extends Component {
   render() {
     const style = HodlBannerStyle();
     const { status, actions, activeScreen } = this.props;
-    if (!status.isActive) return null;
+    if (!status.isActive || activeScreen === "VerifyProfile") return null;
 
     const now = moment.utc();
     const deactivatedAt = moment.utc(status.deactivated_at);

@@ -91,7 +91,7 @@ class SecuritySettings extends Component {
   rightSwitchHodl = () => {
     const { isInHodlMode } = this.state;
     const { hodlStatus } = this.props;
-    // || hodlStatus.created_by === "backoffice"
+    //  || hodlStatus.created_by === "backoffice"
     return (
       <CelSwitch
         onValueChange={this.handleSwitchChangeHodl}

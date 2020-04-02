@@ -18,7 +18,11 @@
   },
   "static_framework": true,
   "dependencies": {
-    "AppsFlyerFramework": ["~> 4.10.4"],
-    "React": []
+    "AppsFlyerFramework": [
+      "~> 4.10.4"
+    ],
+    "React": [
+
+    ]
   }
 }

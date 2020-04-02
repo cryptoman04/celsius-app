@@ -92,7 +92,6 @@ class VerifyProfile extends Component {
 
   onCheckSuccess = async () => {
     this.setState({ loading: true });
-
     const { navigation, actions, previousScreen } = this.props;
     const onSuccess = navigation.getParam("onSuccess");
     const activeScreen = navigation.getParam("activeScreen");

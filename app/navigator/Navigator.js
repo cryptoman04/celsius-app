@@ -102,6 +102,7 @@ import HODLViewCode from "../components/screens/HODLViewCode/HODLViewCode";
 import HodlDeactivationCode from "../components/screens/HodlDeactivationCode/HodlDeactivationCode";
 import TransactionsIntersection from "../components/screens/TransactionsIntersection/TransactionsIntersection";
 import CelHeading from "../components/organisms/CelHeading/CelHeading";
+import WithdrawConfirm from "../components/screens/WithdrawConfirm/WithdrawConfirm";
 
 export const screens = {
   /**
@@ -144,6 +145,7 @@ export const screens = {
    */
 
   WalletLanding,
+  WithdrawConfirm,
   TransactionsOnHold,
   WalletInterest,
   BalanceHistory,

@@ -16,27 +16,35 @@
     "ios": "8.0"
   },
   "dependencies": {
-    "React": []
+    "React": [
+
+    ]
   },
   "subspecs": [
     {
       "name": "Core",
       "dependencies": {
-        "FBSDKCoreKit": ["= 5.8"]
+        "FBSDKCoreKit": [
+          "= 5.8"
+        ]
       },
       "source_files": "ios/RCTFBSDK/core/*.{h,m}"
     },
     {
       "name": "Login",
       "dependencies": {
-        "FBSDKLoginKit": ["= 5.8"]
+        "FBSDKLoginKit": [
+          "= 5.8"
+        ]
       },
       "source_files": "ios/RCTFBSDK/login/*.{h,m}"
     },
     {
       "name": "Share",
       "dependencies": {
-        "FBSDKShareKit": ["= 5.8"]
+        "FBSDKShareKit": [
+          "= 5.8"
+        ]
       },
       "source_files": "ios/RCTFBSDK/share/*.{h,m}"
     }

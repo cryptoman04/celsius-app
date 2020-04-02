@@ -7,7 +7,7 @@ import formatter from "../../../utils/formatter";
 
 const CelPayInfoModal = props => {
   const style = CelPayInfoModalStyle(props.theme);
-  const { close, maxTransferAmount } = props;
+  const { maxTransferAmount } = props;
   return (
     <InfoModal
       picture={require("../../../../assets/images/icon-send.png")}
@@ -19,8 +19,6 @@ const CelPayInfoModal = props => {
       paragraphs={[
         `No addresses needed - send up to ${formatter.usd(maxTransferAmount)} worth of crypto quickly and easily one-touch sharing options.`,
       ]}
-      yesCopy={"Start CelPay"}
-      onYes={close}
     />
   );
 };

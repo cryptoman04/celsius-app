@@ -15,7 +15,11 @@
     "tvos": "10.0"
   },
   "dependencies": {
-    "Mixpanel": ["~> 3.6.0"],
-    "React": []
+    "Mixpanel": [
+      "~> 3.6.0"
+    ],
+    "React": [
+
+    ]
   }
 }

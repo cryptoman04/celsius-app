@@ -37,6 +37,7 @@ class Home extends Component {
 
   static navigationOptions = () => ({
     header: null,
+    gesturesEnabled: false,
   });
 
   constructor(props) {
@@ -57,7 +58,7 @@ class Home extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { user, appInitialized } = this.props;
+    const { user, appInitialized, actions } = this.props;
     SplashScreen.hide();
 
     if (STORYBOOK) {
@@ -73,13 +74,18 @@ class Home extends Component {
         if (user.kyc) {
           if (isKYCRejectedForever()) {
             return prevProps.actions.navigateTo("VerifyProfile", {
-              activeScreen: "KYCFinalRejection",
+              onSuccess: () => {
+                actions.navigateTo("KYCFinalRejection");
+                actions.resetToScreen("KYCFinalRejection");
+              },
             });
           }
         }
         return prevProps.actions.navigateTo("VerifyProfile", {
-          activeScreen: "WalletLanding",
           showLogOutBtn: true,
+          onSuccess: () => {
+            actions.resetToScreen("WalletLanding");
+          },
         });
       }
       return prevProps.actions.navigateTo("Welcome");
