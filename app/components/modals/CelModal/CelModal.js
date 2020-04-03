@@ -182,6 +182,7 @@ class CelModal extends Component {
           <TouchableOpacity
             style={style.outsideCloseModal}
             onPress={() => {
+              if (!hasCloseButton) return;
               if (onClose) {
                 onClose();
               }
