@@ -19,6 +19,7 @@ import API from "../../../constants/API";
 import { SIMPLEX_FIAT_CURRENCIES } from "../../../constants/DATA";
 import Spinner from "../../atoms/Spinner/Spinner";
 import { getTheme } from "../../../utils/styles-util";
+import mixpanelAnalytics from "../../../utils/mixpanel-analytics";
 
 @connect(
   state => ({
@@ -55,12 +56,12 @@ class GetCoinsEnterAmount extends Component {
     const availableCryptoCoins =
       buyCoinsSettings && depositCompliance
         ? currencies
-          .filter(c => depositCompliance.coins.includes(c.short))
-          .filter(c => buyCoinsSettings.supported_coins.includes(c.short))
-          .map(c => ({
-            label: `${formatter.capitalize(c.name)} (${c.short})`,
-            value: c.short,
-          }))
+            .filter(c => depositCompliance.coins.includes(c.short))
+            .filter(c => buyCoinsSettings.supported_coins.includes(c.short))
+            .map(c => ({
+              label: `${formatter.capitalize(c.name)} (${c.short})`,
+              value: c.short,
+            }))
         : [];
 
     actions.updateFormFields({
@@ -77,7 +78,16 @@ class GetCoinsEnterAmount extends Component {
   }
 
   handleNextStep = () => {
-    const { actions, formData, buyCoinsSettings } = this.props;
+    const {
+      actions,
+      formData,
+      buyCoinsSettings,
+      currencyRatesShort,
+    } = this.props;
+
+    const cryptoProp = formData.cryptoCoin.toLowerCase();
+    const amountInUsd =
+      currencyRatesShort[cryptoProp] / Number(formData.amountCrypto);
 
     if (
       Number(formData.amountFiat) <
@@ -103,6 +113,16 @@ class GetCoinsEnterAmount extends Component {
         )} to continue.`
       );
     }
+
+    actions.updateFormField("amountInUsd", amountInUsd * 1.35); // NOTE: added 3.5% fee to value
+    mixpanelAnalytics.enteredBuyCoinsAmount(
+      "CARD",
+      formData.cryptoCoin,
+      formData.fiatCoin,
+      formData.amountInUsd,
+      formData.amountFiat,
+      formData.amountCrypto
+    );
     actions.openModal(MODALS.GET_COINS_CONFIRM_MODAL);
   };
 

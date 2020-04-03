@@ -32,6 +32,7 @@ function choseBuyCoinsType(type) {
  * @param {string} buyCoinsType - CARD|WIRE
  * @param {string} cryptoCoin - BTC|ETH
  * @param {string} fiatCoin - USD
+ * @param {number} amountUsd
  * @param {number} amountFiat
  * @param {number} amountCrypto
  */
@@ -39,6 +40,7 @@ function enteredBuyCoinsAmount(
   buyCoinsType,
   cryptoCoin,
   fiatCoin,
+  amountUsd,
   amountFiat,
   amountCrypto
 ) {
@@ -46,6 +48,7 @@ function enteredBuyCoinsAmount(
     buyCoinsType,
     cryptoCoin,
     fiatCoin,
+    amountUsd,
     amountFiat,
     amountCrypto,
   });
@@ -57,6 +60,7 @@ function enteredBuyCoinsAmount(
  * @param {string} buyCoinsType - CARD|WIRE
  * @param {string} cryptoCoin - BTC|ETH
  * @param {string} fiatCoin - USD
+ * @param {number} amountUsd
  * @param {number} amountFiat
  * @param {number} amountCrypto
  */
@@ -64,6 +68,7 @@ function initiatedBuyCoinsRequest(
   buyCoinsType,
   cryptoCoin,
   fiatCoin,
+  amountUsd,
   amountFiat,
   amountCrypto
 ) {
@@ -71,6 +76,7 @@ function initiatedBuyCoinsRequest(
     buyCoinsType,
     cryptoCoin,
     fiatCoin,
+    amountUsd,
     amountFiat,
     amountCrypto,
   });
@@ -82,6 +88,7 @@ function initiatedBuyCoinsRequest(
  * @param {string} buyCoinsType - CARD|WIRE
  * @param {string} cryptoCoin - BTC|ETH
  * @param {string} fiatCoin - USD
+ * @param {number} amountUsd
  * @param {number} amountFiat
  * @param {number} amountCrypto
  * @param {string} status - success|fail
@@ -90,6 +97,7 @@ function finishedSimplexFlow(
   buyCoinsType,
   cryptoCoin,
   fiatCoin,
+  amountUsd,
   amountFiat,
   amountCrypto,
   status
@@ -98,6 +106,7 @@ function finishedSimplexFlow(
     buyCoinsType,
     cryptoCoin,
     fiatCoin,
+    amountUsd,
     amountFiat,
     amountCrypto,
     status,

@@ -42,14 +42,6 @@ function simplexGetQuote() {
           type: ACTIONS.GET_QUOTE_SUCCESS,
           quote: quote.data,
         });
-
-        mixpanelAnalytics.enteredBuyCoinsAmount(
-          "CARD",
-          formData.cryptoCoin,
-          formData.fiatCoin,
-          formData.amountFiat,
-          formData.amountCrypto
-        );
       }
     } catch (err) {
       dispatch(showMessage("error", err.msg));
@@ -135,6 +127,7 @@ function simplexCreatePaymentRequest() {
         "CARD",
         formData.cryptoCoin,
         formData.fiatCoin,
+        formData.amountInUsd,
         simplexData.fiat_money.total_amount,
         simplexData.digital_money.amount
       );

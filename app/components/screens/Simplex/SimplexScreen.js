@@ -39,7 +39,7 @@ class SimplexScreen extends Component {
     gesturesEnabled: false,
     customBack: () => {
       store.dispatch(navigateTo("WalletLanding"));
-    }
+    },
   });
 
   constructor(props) {
@@ -106,6 +106,7 @@ class SimplexScreen extends Component {
         "CARD",
         formData.cryptoCoin,
         formData.fiatCoin,
+        formData.amountInUsd,
         formData.amountFiat,
         formData.amountCrypto,
         "success"
@@ -120,9 +121,10 @@ class SimplexScreen extends Component {
         "CARD",
         formData.cryptoCoin,
         formData.fiatCoin,
+        formData.amountInUsd,
         formData.amountFiat,
         formData.amountCrypto,
-        "success"
+        "failed"
       );
     }
   };
