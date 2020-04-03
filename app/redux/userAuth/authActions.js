@@ -83,7 +83,7 @@ function loginUser() {
       } else {
         dispatch(navigateTo("VerifyScreen"), {
           onSuccess: () => {
-            navigateTo("WalletLanding");
+            resetToScreen("WalletLanding");
           },
         });
       }
