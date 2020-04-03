@@ -363,9 +363,16 @@ function setUserAppSettings(data) {
       const appSettings = getState().user.appSettings;
 
       const newData = { ...data };
+
+      // Stringify JSON payloads
       if (newData.interest_in_cel_per_coin) {
         newData.interest_in_cel_per_coin = JSON.stringify(
           newData.interest_in_cel_per_coin
+        );
+      }
+      if (newData.user_triggered_actions) {
+        newData.user_triggered_actions = JSON.stringify(
+          newData.user_triggered_actions
         );
       }
 

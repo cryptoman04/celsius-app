@@ -44,7 +44,7 @@ import LtcAddressChangeModal from "../../modals/LtcAddressChangeModal/LtcAddress
         ? state.user.profile.kyc.rejectionReasons
         : [],
       walletAddresses: state.wallet.addresses,
-      userAppActions: state.user.appSettings.user_app_actions || {},
+      userTriggeredActions: state.user.appSettings.user_triggered_actions || {},
     };
   },
   dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
@@ -88,14 +88,14 @@ class WalletLanding extends Component {
       currenciesRates,
       currenciesGraphs,
       walletAddresses,
-      userAppActions,
+      userTriggeredActions,
     } = this.props;
 
     if (
       walletAddresses &&
       walletAddresses.LTCRawResponse &&
       walletAddresses.LTCRawResponse.has_inactive_addresses &&
-      !userAppActions.confirmedLTCAddressChange
+      !userTriggeredActions.confirmedLTCAddressChange
     ) {
       actions.openModal(MODALS.LTC_ADDRESS_CHANGE);
     }

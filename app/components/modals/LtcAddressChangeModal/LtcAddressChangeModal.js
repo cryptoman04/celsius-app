@@ -19,7 +19,7 @@ import CelModalButton from "../../atoms/CelModalButton/CelModalButton";
   state => ({
     formData: state.forms.formData,
     callsInProgress: state.api.callsInProgress,
-    userAppActions: state.user.appSettings.user_app_actions || {},
+    userTriggeredActions: state.user.appSettings.user_triggered_actions || {},
     ltcCoinDetails: state.currencies.rates.find(c => c.short === "LTC"),
   }),
   dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
@@ -29,10 +29,11 @@ class LtcAddressChangeModal extends Component {
   static defaultProps = {};
 
   toggleAddressChangeConfirmation = () => {
-    const { actions, userAppActions } = this.props;
+    const { actions, userTriggeredActions } = this.props;
+
     actions.setUserAppSettings({
       user_triggered_actions: {
-        confirmedLTCAddressChange: !userAppActions.confirmedLTCAddressChange,
+        confirmedLTCAddressChange: !userTriggeredActions.confirmedLTCAddressChange,
       },
     });
   };
@@ -40,7 +41,7 @@ class LtcAddressChangeModal extends Component {
   render() {
     const {
       actions,
-      userAppActions,
+      userTriggeredActions,
       callsInProgress,
       ltcCoinDetails,
     } = this.props;
@@ -75,7 +76,7 @@ class LtcAddressChangeModal extends Component {
             onChange={this.toggleAddressChangeConfirmation}
             loading={isLoading}
             updateFormField={actions.updateFormField}
-            value={userAppActions.confirmedLTCAddressChange}
+            value={userTriggeredActions.confirmedLTCAddressChange}
             uncheckedCheckBoxColor={STYLES.COLORS.GRAY}
             checkedCheckBoxColor={STYLES.COLORS.GREEN}
             rightText="I understand that my LTC deposit address has changed"
@@ -85,7 +86,9 @@ class LtcAddressChangeModal extends Component {
           <CelModalButton
             onPress={actions.closeModal}
             buttonStyle={
-              !userAppActions.confirmedLTCAddressChange ? "disabled" : null
+              !userTriggeredActions.confirmedLTCAddressChange
+                ? "disabled"
+                : null
             }
           >
             Continue
