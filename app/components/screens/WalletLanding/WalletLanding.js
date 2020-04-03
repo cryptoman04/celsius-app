@@ -10,7 +10,7 @@ import WalletDetailsCard from "../../organisms/WalletDetailsCard/WalletDetailsCa
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
 import Icon from "../../atoms/Icon/Icon";
 import CelPayReceivedModal from "../../modals/CelPayReceivedModal/CelPayReceivedModal";
-import { WALLET_LANDING_VIEW_TYPES } from "../../../constants/UI";
+import { MODALS, WALLET_LANDING_VIEW_TYPES } from "../../../constants/UI";
 import MissingInfoCard from "../../atoms/MissingInfoCard/MissingInfoCard";
 import ComingSoonCoins from "../../molecules/ComingSoonCoins/ComingSoonCoins";
 import CoinCards from "../../organisms/CoinCards/CoinCards";
@@ -22,6 +22,7 @@ import LoanAlertsModalWrapper from "../../modals/LoanAlertsModals/LoanAlertsModa
 import BecomeCelMemberModal from "../../modals/BecomeCelMemberModal/BecomeCelMemberModal";
 import BannerCrossroad from "../../organisms/BannerCrossroad/BannerCrossroad";
 import CelButton from "../../atoms/CelButton/CelButton";
+import LtcAddressChangeModal from "../../modals/LtcAddressChangeModal/LtcAddressChangeModal";
 
 @connect(
   state => {
@@ -42,6 +43,8 @@ import CelButton from "../../atoms/CelButton/CelButton";
       rejectionReasons: state.user.profile.kyc
         ? state.user.profile.kyc.rejectionReasons
         : [],
+      walletAddresses: state.wallet.addresses,
+      userAppActions: state.user.appSettings.user_app_actions || {},
     };
   },
   dispatch => ({ actions: bindActionCreators(appActions, dispatch) })
@@ -84,7 +87,18 @@ class WalletLanding extends Component {
       appSettings,
       currenciesRates,
       currenciesGraphs,
+      walletAddresses,
+      userAppActions,
     } = this.props;
+
+    if (
+      walletAddresses &&
+      walletAddresses.LTCRawResponse &&
+      walletAddresses.LTCRawResponse.has_inactive_addresses &&
+      !userAppActions.confirmedLTCAddressChange
+    ) {
+      actions.openModal(MODALS.LTC_ADDRESS_CHANGE);
+    }
 
     actions.checkForLoanAlerts();
     BackHandler.addEventListener("hardwareBackPress", this.handleBackButton);
@@ -248,11 +262,13 @@ class WalletLanding extends Component {
             <ComingSoonCoins activeView={activeView} />
           </ExpandableItem>
         </View>
+
         <CelPayReceivedModal transfer={branchTransfer} />
         <ReferralSendModal />
         <RejectionReasonsModal rejectionReasons={rejectionReasons} />
         <BecomeCelMemberModal />
         <LoanAlertsModalWrapper />
+        <LtcAddressChangeModal />
       </RegularLayout>
     );
   }

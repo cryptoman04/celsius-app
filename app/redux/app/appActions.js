@@ -1,7 +1,4 @@
-// TODO(sb): RN update dependencies fixes
-// import * as Location from "expo-location";
 import { Platform } from "react-native";
-// import RNAdvertisingId from "react-native-advertising";
 import { IDFA } from "react-native-idfa";
 import appsFlyer from "react-native-appsflyer";
 import Geolocation from "@react-native-community/geolocation";
@@ -32,12 +29,6 @@ import mixpanelAnalytics from "../../utils/mixpanel-analytics";
 
 const { SECURITY_STORAGE_AUTH_KEY } = Constants;
 
-// TODO add more JSDoc description
-// TODO add more JSDoc description
-// TODO add more JSDoc description
-// TODO add more JSDoc description
-
-// TODO move to security actions
 export {
   initCelsiusApp,
   loadCelsiusAssets,
@@ -292,6 +283,7 @@ function initAppData(initToken = null) {
         if (profile.kyc && hasPassedKYC()) {
           await dispatch(actions.getWalletSummary());
           await dispatch(actions.getLoyaltyInfo());
+          await dispatch(actions.getCoinAddress("LTC"));
           if (allowed) await dispatch(actions.getAllLoans());
         }
       }
